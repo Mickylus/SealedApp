@@ -1,0 +1,2098 @@
+{
+  "schemaVersion": 1,
+  "seedVersion": "2026-10-09.1",
+  "language": "it",
+  "units": "giorni di calendario",
+  "conventions": {
+    "null": "null = non adatto a quella conservazione (richiede giorni manuali)",
+    "fridge": "frigorifero a ≤4 °C",
+    "freezer": "congelatore a -18 °C: per il freezer i giorni indicano la QUALITÀ, non la sicurezza",
+    "normalDays": "conservazione senza sottovuoto",
+    "vacuumDays": "conservazione sottovuoto, stima prudente (sempre >= normalDays)"
+  },
+  "disclaimer": "Valori prudenti e orientativi, ispirati a linee guida generali di conservazione ma NON copiati da un dataset ufficiale. Tutte le voci sono verified:false finché non le controlli. Sono promemoria, non garanzie di sicurezza alimentare: in caso di dubbio su odore, aspetto o consistenza, non consumare.",
+  "foods": [
+    {
+      "id": "manzo-fettina-bistecca-crudo",
+      "name": "Manzo, fettine e bistecche (crudo)",
+      "category": "Carne cruda",
+      "state": "raw",
+      "aliases": [
+        "bistecca",
+        "fettina",
+        "tagliata",
+        "controfiletto",
+        "filetto",
+        "scaloppina di manzo"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 3,
+          "vacuumDays": 5
+        },
+        "freezer": {
+          "normalDays": 180,
+          "vacuumDays": 270
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "manzo-spezzatino-crudo",
+      "name": "Manzo, spezzatino e cubetti (crudo)",
+      "category": "Carne cruda",
+      "state": "raw",
+      "aliases": [
+        "spezzatino",
+        "gulasch",
+        "brasato crudo",
+        "cubetti di manzo"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 2,
+          "vacuumDays": 4
+        },
+        "freezer": {
+          "normalDays": 150,
+          "vacuumDays": 240
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "macinato-crudo",
+      "name": "Carne macinata (crudo)",
+      "category": "Carne cruda",
+      "state": "raw",
+      "aliases": [
+        "macinato",
+        "carne trita",
+        "hamburger crudo",
+        "macinato misto"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 1,
+          "vacuumDays": 2
+        },
+        "freezer": {
+          "normalDays": 90,
+          "vacuumDays": 150
+        }
+      },
+      "vacuumNote": null,
+      "notes": "Da consumare il prima possibile.",
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "maiale-crudo",
+      "name": "Maiale, braciole e arista (crudo)",
+      "category": "Carne cruda",
+      "state": "raw",
+      "aliases": [
+        "braciola",
+        "lonza",
+        "arista",
+        "costine",
+        "puntine",
+        "maiale"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 2,
+          "vacuumDays": 4
+        },
+        "freezer": {
+          "normalDays": 120,
+          "vacuumDays": 240
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "salsiccia-fresca-cruda",
+      "name": "Salsiccia fresca (cruda)",
+      "category": "Carne cruda",
+      "state": "raw",
+      "aliases": [
+        "salsiccia",
+        "luganega",
+        "salamella"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 2,
+          "vacuumDays": 3
+        },
+        "freezer": {
+          "normalDays": 60,
+          "vacuumDays": 120
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "pollo-pezzi-crudo",
+      "name": "Pollo, pezzi (crudo)",
+      "category": "Carne cruda",
+      "state": "raw",
+      "aliases": [
+        "petto di pollo",
+        "cosce",
+        "sovracosce",
+        "fusi",
+        "ali",
+        "pollo a pezzi",
+        "fettine di pollo"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 2,
+          "vacuumDays": 3
+        },
+        "freezer": {
+          "normalDays": 180,
+          "vacuumDays": 270
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "tacchino-crudo",
+      "name": "Tacchino (crudo)",
+      "category": "Carne cruda",
+      "state": "raw",
+      "aliases": [
+        "fesa di tacchino",
+        "petto di tacchino",
+        "tacchino"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 2,
+          "vacuumDays": 3
+        },
+        "freezer": {
+          "normalDays": 180,
+          "vacuumDays": 270
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "agnello-crudo",
+      "name": "Agnello (crudo)",
+      "category": "Carne cruda",
+      "state": "raw",
+      "aliases": [
+        "agnello",
+        "costolette d'agnello",
+        "cosciotto"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 3,
+          "vacuumDays": 4
+        },
+        "freezer": {
+          "normalDays": 150,
+          "vacuumDays": 240
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "vitello-crudo",
+      "name": "Vitello (crudo)",
+      "category": "Carne cruda",
+      "state": "raw",
+      "aliases": [
+        "scaloppine",
+        "fettine di vitello",
+        "fesa di vitello",
+        "vitello"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 2,
+          "vacuumDays": 4
+        },
+        "freezer": {
+          "normalDays": 150,
+          "vacuumDays": 240
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "coniglio-crudo",
+      "name": "Coniglio (crudo)",
+      "category": "Carne cruda",
+      "state": "raw",
+      "aliases": [
+        "coniglio"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 2,
+          "vacuumDays": 3
+        },
+        "freezer": {
+          "normalDays": 150,
+          "vacuumDays": 210
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "frattaglie-crude",
+      "name": "Fegato e frattaglie (crudo)",
+      "category": "Carne cruda",
+      "state": "raw",
+      "aliases": [
+        "fegato",
+        "cuore",
+        "trippa cruda",
+        "rognone"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 1,
+          "vacuumDays": 2
+        },
+        "freezer": {
+          "normalDays": 90,
+          "vacuumDays": 150
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "pesce-magro-crudo",
+      "name": "Pesce fresco magro (crudo)",
+      "category": "Pesce e frutti di mare",
+      "state": "raw",
+      "aliases": [
+        "merluzzo",
+        "orata",
+        "branzino",
+        "spigola",
+        "platessa",
+        "nasello",
+        "baccalà fresco"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 1,
+          "vacuumDays": 2
+        },
+        "freezer": {
+          "normalDays": 120,
+          "vacuumDays": 180
+        }
+      },
+      "vacuumNote": "Il sottovuoto in frigo non ferma i batteri anaerobi: non superare questi tempi, cuocere o congelare in fretta.",
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "pesce-grasso-crudo",
+      "name": "Pesce fresco grasso (crudo)",
+      "category": "Pesce e frutti di mare",
+      "state": "raw",
+      "aliases": [
+        "salmone fresco",
+        "tonno fresco",
+        "pesce spada",
+        "sgombro",
+        "sarde",
+        "alici"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 1,
+          "vacuumDays": 2
+        },
+        "freezer": {
+          "normalDays": 60,
+          "vacuumDays": 120
+        }
+      },
+      "vacuumNote": "Il sottovuoto in frigo non ferma i batteri anaerobi: non superare questi tempi, cuocere o congelare in fretta.",
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "gamberi-crudi",
+      "name": "Gamberi e scampi (crudo)",
+      "category": "Pesce e frutti di mare",
+      "state": "raw",
+      "aliases": [
+        "gamberi",
+        "mazzancolle",
+        "scampi",
+        "gamberoni"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 1,
+          "vacuumDays": 2
+        },
+        "freezer": {
+          "normalDays": 90,
+          "vacuumDays": 150
+        }
+      },
+      "vacuumNote": "Il sottovuoto in frigo non ferma i batteri anaerobi: non superare questi tempi, cuocere o congelare in fretta.",
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "calamari-seppie-crudi",
+      "name": "Calamari, seppie e polpo (crudo)",
+      "category": "Pesce e frutti di mare",
+      "state": "raw",
+      "aliases": [
+        "calamari",
+        "seppie",
+        "totani",
+        "polpo",
+        "moscardini"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 1,
+          "vacuumDays": 2
+        },
+        "freezer": {
+          "normalDays": 90,
+          "vacuumDays": 150
+        }
+      },
+      "vacuumNote": "Il sottovuoto in frigo non ferma i batteri anaerobi: non superare questi tempi, cuocere o congelare in fretta.",
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "salmone-affumicato",
+      "name": "Salmone affumicato (confezione aperta)",
+      "category": "Pesce e frutti di mare",
+      "state": "other",
+      "aliases": [
+        "salmone affumicato",
+        "pesce affumicato"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 3,
+          "vacuumDays": 4
+        },
+        "freezer": {
+          "normalDays": 60,
+          "vacuumDays": 90
+        }
+      },
+      "vacuumNote": "Il sottovuoto in frigo non ferma i batteri anaerobi: non superare questi tempi, cuocere o congelare in fretta.",
+      "notes": "Attenzione in gravidanza e per persone fragili: segui sempre le indicazioni in etichetta.",
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "tonno-scatola-aperto",
+      "name": "Tonno e pesce in scatola (aperto)",
+      "category": "Pesce e frutti di mare",
+      "state": "other",
+      "aliases": [
+        "tonno in scatola",
+        "sgombro in scatola",
+        "sardine in scatola"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 2,
+          "vacuumDays": 3
+        },
+        "freezer": {
+          "normalDays": null,
+          "vacuumDays": null
+        }
+      },
+      "vacuumNote": null,
+      "notes": "Trasferire dalla scatola in un contenitore.",
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "carne-cotta",
+      "name": "Carne cotta (arrosto, bollito, brasato)",
+      "category": "Piatti cotti",
+      "state": "cooked",
+      "aliases": [
+        "arrosto",
+        "bollito",
+        "brasato",
+        "roast beef cotto",
+        "tagliata cotta",
+        "stufato"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 3,
+          "vacuumDays": 5
+        },
+        "freezer": {
+          "normalDays": 90,
+          "vacuumDays": 150
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "pollo-cotto",
+      "name": "Pollo e tacchino cotti",
+      "category": "Piatti cotti",
+      "state": "cooked",
+      "aliases": [
+        "pollo arrosto",
+        "petto di pollo cotto",
+        "cotoletta cotta",
+        "tacchino cotto",
+        "pollo al forno"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 3,
+          "vacuumDays": 4
+        },
+        "freezer": {
+          "normalDays": 90,
+          "vacuumDays": 150
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "polpette-cotte",
+      "name": "Polpette e hamburger cotti",
+      "category": "Piatti cotti",
+      "state": "cooked",
+      "aliases": [
+        "polpette",
+        "hamburger cotto",
+        "polpettone"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 3,
+          "vacuumDays": 4
+        },
+        "freezer": {
+          "normalDays": 90,
+          "vacuumDays": 150
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "pesce-cotto",
+      "name": "Pesce cotto",
+      "category": "Piatti cotti",
+      "state": "cooked",
+      "aliases": [
+        "pesce al forno",
+        "pesce alla griglia",
+        "merluzzo cotto",
+        "salmone cotto",
+        "orata al forno"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 2,
+          "vacuumDays": 3
+        },
+        "freezer": {
+          "normalDays": 60,
+          "vacuumDays": 120
+        }
+      },
+      "vacuumNote": "Il sottovuoto in frigo non ferma i batteri anaerobi: non superare questi tempi, cuocere o congelare in fretta.",
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "gamberi-cotti",
+      "name": "Gamberi e frutti di mare cotti",
+      "category": "Piatti cotti",
+      "state": "cooked",
+      "aliases": [
+        "gamberi cotti",
+        "frutti di mare cotti",
+        "cozze cotte",
+        "insalata di mare"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 2,
+          "vacuumDays": 2
+        },
+        "freezer": {
+          "normalDays": 60,
+          "vacuumDays": 90
+        }
+      },
+      "vacuumNote": "Il sottovuoto in frigo non ferma i batteri anaerobi: non superare questi tempi, cuocere o congelare in fretta.",
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "zuppa-minestrone",
+      "name": "Zuppa, minestrone e passato",
+      "category": "Piatti cotti",
+      "state": "cooked",
+      "aliases": [
+        "minestrone",
+        "passato di verdure",
+        "vellutata",
+        "zuppa",
+        "crema di verdure"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 3,
+          "vacuumDays": 4
+        },
+        "freezer": {
+          "normalDays": 90,
+          "vacuumDays": 150
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "brodo",
+      "name": "Brodo",
+      "category": "Piatti cotti",
+      "state": "cooked",
+      "aliases": [
+        "brodo di carne",
+        "brodo vegetale",
+        "brodo di pollo"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 3,
+          "vacuumDays": 4
+        },
+        "freezer": {
+          "normalDays": 120,
+          "vacuumDays": 180
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "lasagne-al-forno",
+      "name": "Lasagne e timballi al forno",
+      "category": "Piatti cotti",
+      "state": "cooked",
+      "aliases": [
+        "lasagne",
+        "cannelloni",
+        "timballo",
+        "parmigiana",
+        "pasticcio"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 3,
+          "vacuumDays": 4
+        },
+        "freezer": {
+          "normalDays": 60,
+          "vacuumDays": 90
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "pizza-cotta",
+      "name": "Pizza cotta (avanzata)",
+      "category": "Piatti cotti",
+      "state": "cooked",
+      "aliases": [
+        "pizza",
+        "focaccia farcita",
+        "pizza avanzata"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 3,
+          "vacuumDays": 4
+        },
+        "freezer": {
+          "normalDays": 60,
+          "vacuumDays": 90
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "frittata-cotta",
+      "name": "Frittata e piatti a base di uova cotti",
+      "category": "Piatti cotti",
+      "state": "cooked",
+      "aliases": [
+        "frittata",
+        "omelette",
+        "quiche",
+        "torta salata"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 3,
+          "vacuumDays": 4
+        },
+        "freezer": {
+          "normalDays": null,
+          "vacuumDays": null
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "avanzi-generici",
+      "name": "Avanzi cucinati (generico)",
+      "category": "Piatti cotti",
+      "state": "leftover",
+      "aliases": [
+        "avanzi",
+        "piatto pronto",
+        "cena di ieri",
+        "pranzo di ieri"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 3,
+          "vacuumDays": 3
+        },
+        "freezer": {
+          "normalDays": 60,
+          "vacuumDays": 90
+        }
+      },
+      "vacuumNote": null,
+      "notes": "Voce di ripiego: se possibile scegli la voce specifica.",
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "pasta-cotta-condita",
+      "name": "Pasta cotta condita",
+      "category": "Pasta, riso e cereali",
+      "state": "cooked",
+      "aliases": [
+        "pasta al sugo",
+        "pasta condita",
+        "pasta al pesto cotta"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 3,
+          "vacuumDays": 4
+        },
+        "freezer": {
+          "normalDays": 60,
+          "vacuumDays": 120
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "pasta-cotta-bianco",
+      "name": "Pasta cotta non condita",
+      "category": "Pasta, riso e cereali",
+      "state": "cooked",
+      "aliases": [
+        "pasta in bianco",
+        "pasta scondita",
+        "spaghetti cotti"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 3,
+          "vacuumDays": 5
+        },
+        "freezer": {
+          "normalDays": 60,
+          "vacuumDays": 120
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "riso-cotto",
+      "name": "Riso cotto e risotto",
+      "category": "Pasta, riso e cereali",
+      "state": "cooked",
+      "aliases": [
+        "riso in bianco",
+        "risotto",
+        "riso basmati cotto",
+        "riso pilaf"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 2,
+          "vacuumDays": 2
+        },
+        "freezer": {
+          "normalDays": 60,
+          "vacuumDays": 90
+        }
+      },
+      "vacuumNote": "Raffredda in fretta (entro circa un'ora) e tieni a ≤4 °C: il riso cotto è delicato.",
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "polenta-cotta",
+      "name": "Polenta cotta",
+      "category": "Pasta, riso e cereali",
+      "state": "cooked",
+      "aliases": [
+        "polenta",
+        "polenta avanzata"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 3,
+          "vacuumDays": 5
+        },
+        "freezer": {
+          "normalDays": 90,
+          "vacuumDays": 150
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "cereali-cotti",
+      "name": "Cereali cotti (farro, orzo, quinoa, couscous)",
+      "category": "Pasta, riso e cereali",
+      "state": "cooked",
+      "aliases": [
+        "farro",
+        "orzo",
+        "quinoa",
+        "couscous",
+        "bulgur"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 3,
+          "vacuumDays": 5
+        },
+        "freezer": {
+          "normalDays": 90,
+          "vacuumDays": 150
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "legumi-cotti",
+      "name": "Legumi cotti",
+      "category": "Pasta, riso e cereali",
+      "state": "cooked",
+      "aliases": [
+        "fagioli",
+        "ceci",
+        "lenticchie",
+        "piselli cotti",
+        "borlotti",
+        "cannellini"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 3,
+          "vacuumDays": 5
+        },
+        "freezer": {
+          "normalDays": 180,
+          "vacuumDays": 270
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "pasta-fresca-uovo",
+      "name": "Pasta fresca all'uovo (cruda)",
+      "category": "Pasta, riso e cereali",
+      "state": "raw",
+      "aliases": [
+        "tagliatelle fresche",
+        "ravioli freschi",
+        "tortellini freschi",
+        "lasagne fresche",
+        "gnocchi freschi"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 2,
+          "vacuumDays": 3
+        },
+        "freezer": {
+          "normalDays": 90,
+          "vacuumDays": 150
+        }
+      },
+      "vacuumNote": null,
+      "notes": "Per le confezioni commerciali segui la data in etichetta.",
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "sugo-pomodoro",
+      "name": "Sugo di pomodoro",
+      "category": "Salse e condimenti",
+      "state": "cooked",
+      "aliases": [
+        "salsa di pomodoro",
+        "sugo",
+        "sugo semplice",
+        "passata cotta"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 4,
+          "vacuumDays": 5
+        },
+        "freezer": {
+          "normalDays": 120,
+          "vacuumDays": 180
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "ragu",
+      "name": "Ragù di carne",
+      "category": "Salse e condimenti",
+      "state": "cooked",
+      "aliases": [
+        "ragù",
+        "sugo di carne",
+        "bolognese"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 3,
+          "vacuumDays": 4
+        },
+        "freezer": {
+          "normalDays": 90,
+          "vacuumDays": 150
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "pesto",
+      "name": "Pesto fresco",
+      "category": "Salse e condimenti",
+      "state": "other",
+      "aliases": [
+        "pesto alla genovese",
+        "pesto di basilico",
+        "pesto"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 3,
+          "vacuumDays": 5
+        },
+        "freezer": {
+          "normalDays": 90,
+          "vacuumDays": 150
+        }
+      },
+      "vacuumNote": "Preparazioni con olio e aglio in assenza di ossigeno richiedono cautela: frigo ≤4 °C e non superare questi tempi.",
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "prosciutto-cotto",
+      "name": "Prosciutto cotto affettato",
+      "category": "Salumi e affettati",
+      "state": "other",
+      "aliases": [
+        "prosciutto cotto",
+        "cotto",
+        "arrosto di tacchino affettato"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 3,
+          "vacuumDays": 5
+        },
+        "freezer": {
+          "normalDays": 30,
+          "vacuumDays": 60
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "prosciutto-crudo",
+      "name": "Prosciutto crudo affettato",
+      "category": "Salumi e affettati",
+      "state": "other",
+      "aliases": [
+        "prosciutto crudo",
+        "crudo",
+        "speck affettato"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 5,
+          "vacuumDays": 7
+        },
+        "freezer": {
+          "normalDays": 60,
+          "vacuumDays": 90
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "salumi-affettati",
+      "name": "Salame, bresaola e speck (affettati)",
+      "category": "Salumi e affettati",
+      "state": "other",
+      "aliases": [
+        "salame",
+        "bresaola",
+        "speck",
+        "coppa",
+        "salumi"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 7,
+          "vacuumDays": 10
+        },
+        "freezer": {
+          "normalDays": 60,
+          "vacuumDays": 90
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "salumi-pezzo",
+      "name": "Salumi stagionati (pezzo aperto)",
+      "category": "Salumi e affettati",
+      "state": "other",
+      "aliases": [
+        "salame intero",
+        "guanciale stagionato",
+        "pezzo di speck",
+        "culatello"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 14,
+          "vacuumDays": 21
+        },
+        "freezer": {
+          "normalDays": 60,
+          "vacuumDays": 90
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "mortadella-insaccati",
+      "name": "Mortadella e insaccati cotti",
+      "category": "Salumi e affettati",
+      "state": "other",
+      "aliases": [
+        "mortadella",
+        "cotechino cotto",
+        "zampone cotto"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 4,
+          "vacuumDays": 6
+        },
+        "freezer": {
+          "normalDays": 30,
+          "vacuumDays": 60
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "wurstel",
+      "name": "Würstel (confezione aperta)",
+      "category": "Salumi e affettati",
+      "state": "other",
+      "aliases": [
+        "wurstel",
+        "würstel",
+        "hot dog"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 5,
+          "vacuumDays": 7
+        },
+        "freezer": {
+          "normalDays": 60,
+          "vacuumDays": 90
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "pancetta",
+      "name": "Pancetta affumicata affettata",
+      "category": "Salumi e affettati",
+      "state": "other",
+      "aliases": [
+        "pancetta",
+        "bacon",
+        "pancetta tesa"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 5,
+          "vacuumDays": 7
+        },
+        "freezer": {
+          "normalDays": 30,
+          "vacuumDays": 60
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "formaggio-stagionato",
+      "name": "Formaggio stagionato (parmigiano, grana, pecorino)",
+      "category": "Latticini e formaggi",
+      "state": "other",
+      "aliases": [
+        "parmigiano",
+        "grana padano",
+        "pecorino stagionato",
+        "formaggio duro"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 30,
+          "vacuumDays": 60
+        },
+        "freezer": {
+          "normalDays": 180,
+          "vacuumDays": 270
+        }
+      },
+      "vacuumNote": null,
+      "notes": "Per il freezer meglio grattugiato o in pezzi piccoli. Dopo lo scongelamento la consistenza può cambiare.",
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "formaggio-semiduro",
+      "name": "Formaggio semiduro (fontina, asiago, provolone, scamorza)",
+      "category": "Latticini e formaggi",
+      "state": "other",
+      "aliases": [
+        "fontina",
+        "asiago",
+        "provolone",
+        "scamorza",
+        "edamer",
+        "emmental",
+        "caciotta"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 14,
+          "vacuumDays": 28
+        },
+        "freezer": {
+          "normalDays": 90,
+          "vacuumDays": 180
+        }
+      },
+      "vacuumNote": null,
+      "notes": "Dopo lo scongelamento la consistenza può cambiare.",
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "mozzarella",
+      "name": "Mozzarella e bocconcini (aperta)",
+      "category": "Latticini e formaggi",
+      "state": "other",
+      "aliases": [
+        "mozzarella",
+        "bocconcini",
+        "fiordilatte",
+        "burrata"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 3,
+          "vacuumDays": 4
+        },
+        "freezer": {
+          "normalDays": 60,
+          "vacuumDays": 90
+        }
+      },
+      "vacuumNote": null,
+      "notes": "Conservare nel suo liquido. Dopo lo scongelamento la consistenza può cambiare.",
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "formaggi-freschi",
+      "name": "Ricotta, stracchino, robiola, mascarpone",
+      "category": "Latticini e formaggi",
+      "state": "other",
+      "aliases": [
+        "ricotta",
+        "stracchino",
+        "robiola",
+        "mascarpone",
+        "crescenza",
+        "formaggio spalmabile"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 3,
+          "vacuumDays": 5
+        },
+        "freezer": {
+          "normalDays": null,
+          "vacuumDays": null
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "burro",
+      "name": "Burro",
+      "category": "Latticini e formaggi",
+      "state": "other",
+      "aliases": [
+        "burro",
+        "burro chiarificato"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 30,
+          "vacuumDays": 60
+        },
+        "freezer": {
+          "normalDays": 180,
+          "vacuumDays": 270
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "uova-sode",
+      "name": "Uova sode",
+      "category": "Latticini e formaggi",
+      "state": "cooked",
+      "aliases": [
+        "uova sode",
+        "uovo sodo"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 5,
+          "vacuumDays": 7
+        },
+        "freezer": {
+          "normalDays": null,
+          "vacuumDays": null
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "uova-albumi-tuorli",
+      "name": "Albumi e tuorli (separati o sbattuti)",
+      "category": "Latticini e formaggi",
+      "state": "raw",
+      "aliases": [
+        "albumi",
+        "tuorli",
+        "uova sbattute",
+        "chiare",
+        "rossi d'uovo"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 2,
+          "vacuumDays": 3
+        },
+        "freezer": {
+          "normalDays": 90,
+          "vacuumDays": 150
+        }
+      },
+      "vacuumNote": "Contenuto liquido: usa solo se il contenitore è adatto ai liquidi.",
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "insalata-lavata",
+      "name": "Insalata lavata e asciugata",
+      "category": "Verdura e ortaggi",
+      "state": "raw",
+      "aliases": [
+        "lattuga",
+        "rucola",
+        "songino",
+        "misticanza",
+        "valeriana",
+        "insalata"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 3,
+          "vacuumDays": 5
+        },
+        "freezer": {
+          "normalDays": null,
+          "vacuumDays": null
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "verdure-foglia",
+      "name": "Spinaci, bietole e cavolo nero (crudi)",
+      "category": "Verdura e ortaggi",
+      "state": "raw",
+      "aliases": [
+        "spinaci",
+        "bietole",
+        "cavolo nero",
+        "biete",
+        "cicoria"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 3,
+          "vacuumDays": 5
+        },
+        "freezer": {
+          "normalDays": null,
+          "vacuumDays": null
+        }
+      },
+      "vacuumNote": null,
+      "notes": "Per il freezer sbollentare prima: vedi «Verdure sbollentate».",
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "verdure-sbollentate",
+      "name": "Verdure sbollentate per il freezer",
+      "category": "Verdura e ortaggi",
+      "state": "cooked",
+      "aliases": [
+        "verdure blanchate",
+        "verdure scottate",
+        "spinaci sbollentati"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 3,
+          "vacuumDays": 5
+        },
+        "freezer": {
+          "normalDays": 240,
+          "vacuumDays": 365
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "cavoli",
+      "name": "Broccoli, cavolfiore e cavoli (crudi)",
+      "category": "Verdura e ortaggi",
+      "state": "raw",
+      "aliases": [
+        "broccoli",
+        "cavolfiore",
+        "cavolo",
+        "verza",
+        "cavolini di bruxelles"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 5,
+          "vacuumDays": 7
+        },
+        "freezer": {
+          "normalDays": null,
+          "vacuumDays": null
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "zucchine-melanzane",
+      "name": "Zucchine e melanzane (crude, tagliate)",
+      "category": "Verdura e ortaggi",
+      "state": "raw",
+      "aliases": [
+        "zucchine",
+        "melanzane"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 4,
+          "vacuumDays": 6
+        },
+        "freezer": {
+          "normalDays": null,
+          "vacuumDays": null
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "peperoni",
+      "name": "Peperoni (crudi, tagliati)",
+      "category": "Verdura e ortaggi",
+      "state": "raw",
+      "aliases": [
+        "peperoni",
+        "peperone"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 5,
+          "vacuumDays": 7
+        },
+        "freezer": {
+          "normalDays": 180,
+          "vacuumDays": 270
+        }
+      },
+      "vacuumNote": null,
+      "notes": "Dopo lo scongelamento la consistenza può cambiare.",
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "carote-sedano-finocchi",
+      "name": "Carote, sedano e finocchi (tagliati)",
+      "category": "Verdura e ortaggi",
+      "state": "raw",
+      "aliases": [
+        "carote",
+        "sedano",
+        "finocchi",
+        "finocchio"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 7,
+          "vacuumDays": 14
+        },
+        "freezer": {
+          "normalDays": null,
+          "vacuumDays": null
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "pomodori-tagliati",
+      "name": "Pomodori (tagliati)",
+      "category": "Verdura e ortaggi",
+      "state": "raw",
+      "aliases": [
+        "pomodori",
+        "pomodorini tagliati",
+        "pomodoro"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 3,
+          "vacuumDays": 4
+        },
+        "freezer": {
+          "normalDays": null,
+          "vacuumDays": null
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "cipolla-tagliata",
+      "name": "Cipolla e porri (tagliati)",
+      "category": "Verdura e ortaggi",
+      "state": "raw",
+      "aliases": [
+        "cipolla",
+        "porro",
+        "cipollotto",
+        "scalogno"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 5,
+          "vacuumDays": 7
+        },
+        "freezer": {
+          "normalDays": 180,
+          "vacuumDays": 270
+        }
+      },
+      "vacuumNote": "Il sottovuoto aiuta a contenere gli odori.",
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "funghi-freschi",
+      "name": "Funghi freschi",
+      "category": "Verdura e ortaggi",
+      "state": "raw",
+      "aliases": [
+        "funghi",
+        "champignon",
+        "porcini",
+        "pleurotus"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 3,
+          "vacuumDays": 5
+        },
+        "freezer": {
+          "normalDays": null,
+          "vacuumDays": null
+        }
+      },
+      "vacuumNote": null,
+      "notes": "I funghi cotti possono andare nella voce «Verdure cotte».",
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "zucca-tagliata",
+      "name": "Zucca e patate dolci (crude, a pezzi)",
+      "category": "Verdura e ortaggi",
+      "state": "raw",
+      "aliases": [
+        "zucca",
+        "patata dolce",
+        "patate americane"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 5,
+          "vacuumDays": 7
+        },
+        "freezer": {
+          "normalDays": null,
+          "vacuumDays": null
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "patate-cotte",
+      "name": "Patate cotte",
+      "category": "Verdura e ortaggi",
+      "state": "cooked",
+      "aliases": [
+        "patate lesse",
+        "patate al forno",
+        "purè",
+        "patate arrosto"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 3,
+          "vacuumDays": 5
+        },
+        "freezer": {
+          "normalDays": null,
+          "vacuumDays": null
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "verdure-cotte",
+      "name": "Verdure cotte",
+      "category": "Verdura e ortaggi",
+      "state": "cooked",
+      "aliases": [
+        "contorni",
+        "verdure grigliate",
+        "verdure al forno",
+        "spinaci cotti",
+        "funghi cotti",
+        "verdure saltate"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 3,
+          "vacuumDays": 5
+        },
+        "freezer": {
+          "normalDays": 150,
+          "vacuumDays": 240
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "erbe-aromatiche",
+      "name": "Erbe aromatiche fresche",
+      "category": "Verdura e ortaggi",
+      "state": "raw",
+      "aliases": [
+        "basilico",
+        "prezzemolo",
+        "rosmarino",
+        "salvia",
+        "menta",
+        "erba cipollina"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 7,
+          "vacuumDays": 10
+        },
+        "freezer": {
+          "normalDays": 180,
+          "vacuumDays": 270
+        }
+      },
+      "vacuumNote": null,
+      "notes": "Il basilico tende ad annerire.",
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "frutta-tagliata",
+      "name": "Frutta tagliata (mista)",
+      "category": "Frutta",
+      "state": "raw",
+      "aliases": [
+        "macedonia",
+        "melone",
+        "anguria",
+        "ananas",
+        "mele tagliate",
+        "pere tagliate",
+        "frutta"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 2,
+          "vacuumDays": 3
+        },
+        "freezer": {
+          "normalDays": 180,
+          "vacuumDays": 270
+        }
+      },
+      "vacuumNote": null,
+      "notes": "Dopo lo scongelamento la consistenza può cambiare.",
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "frutti-di-bosco",
+      "name": "Frutti di bosco",
+      "category": "Frutta",
+      "state": "raw",
+      "aliases": [
+        "mirtilli",
+        "lamponi",
+        "fragole",
+        "more",
+        "ribes"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 3,
+          "vacuumDays": 5
+        },
+        "freezer": {
+          "normalDays": 270,
+          "vacuumDays": 365
+        }
+      },
+      "vacuumNote": null,
+      "notes": "Lavare solo prima dell'uso. Dopo lo scongelamento la consistenza può cambiare.",
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "agrumi-tagliati",
+      "name": "Agrumi (tagliati)",
+      "category": "Frutta",
+      "state": "raw",
+      "aliases": [
+        "limone",
+        "arancia",
+        "pompelmo",
+        "mandarino",
+        "lime"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 3,
+          "vacuumDays": 5
+        },
+        "freezer": {
+          "normalDays": 120,
+          "vacuumDays": 180
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "pane",
+      "name": "Pane",
+      "category": "Pane e dolci",
+      "state": "other",
+      "aliases": [
+        "pane",
+        "pane a fette",
+        "panini",
+        "pane in cassetta"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 3,
+          "vacuumDays": 5
+        },
+        "freezer": {
+          "normalDays": 90,
+          "vacuumDays": 180
+        }
+      },
+      "vacuumNote": null,
+      "notes": "Il frigo non è l'ideale per il pane: meglio a fette in freezer.",
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "impasto-crudo",
+      "name": "Impasto per pizza e pane (crudo)",
+      "category": "Pane e dolci",
+      "state": "raw",
+      "aliases": [
+        "impasto della pizza",
+        "impasto del pane",
+        "pasta madre"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 2,
+          "vacuumDays": 3
+        },
+        "freezer": {
+          "normalDays": 60,
+          "vacuumDays": 90
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "torta-secca",
+      "name": "Torta secca, plumcake e muffin",
+      "category": "Pane e dolci",
+      "state": "cooked",
+      "aliases": [
+        "torta",
+        "plumcake",
+        "muffin",
+        "ciambellone",
+        "crostata"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 5,
+          "vacuumDays": 7
+        },
+        "freezer": {
+          "normalDays": 90,
+          "vacuumDays": 150
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "dolci-crema",
+      "name": "Dolci con crema, panna o ricotta",
+      "category": "Pane e dolci",
+      "state": "cooked",
+      "aliases": [
+        "tiramisù",
+        "torta alla crema",
+        "cheesecake",
+        "budino",
+        "panna cotta",
+        "bavarese"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 2,
+          "vacuumDays": 3
+        },
+        "freezer": {
+          "normalDays": null,
+          "vacuumDays": null
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    },
+    {
+      "id": "tofu-aperto",
+      "name": "Tofu (confezione aperta)",
+      "category": "Altro",
+      "state": "other",
+      "aliases": [
+        "tofu",
+        "tempeh",
+        "seitan"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 5,
+          "vacuumDays": 7
+        },
+        "freezer": {
+          "normalDays": 90,
+          "vacuumDays": 150
+        }
+      },
+      "vacuumNote": null,
+      "notes": "Dopo lo scongelamento la consistenza può cambiare.",
+      "source": "stima-prudente",
+      "verified": false,
+      "origin": "seed",
+      "userModified": false
+    }
+  ]
+}
