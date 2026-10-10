@@ -1,16 +1,11 @@
 import { Html5Qrcode, Html5QrcodeSupportedFormats } from 'html5-qrcode';
 import type { QrScannerAdapter, ScannerStats } from './QrScannerAdapter';
 
-const scannerConfig = (deviceId: string) => ({
-  fps: 10,
+const scannerConfig = {
+  fps: 15,
   formatsToSupport: [Html5QrcodeSupportedFormats.QR_CODE],
-  experimentalFeatures: { useBarCodeDetectorIfSupported: true },
-  videoConstraints: {
-    deviceId: { exact: deviceId },
-    width: { ideal: 1920 },
-    height: { ideal: 1080 },
-  },
-});
+  disableFlip: true,
+};
 
 export class Html5QrcodeAdapter implements QrScannerAdapter {
   private scanner: Html5Qrcode | null = null;
@@ -87,7 +82,29 @@ export class Html5QrcodeAdapter implements QrScannerAdapter {
     const errorCallback = () => {
       this.failedFrames += 1;
     };
-    await scanner.start(deviceId, scannerConfig(deviceId), successCallback, errorCallback);
+    await scanner.start(deviceId, scannerConfig, successCallback, errorCallback);
+    const video = document.querySelector<HTMLVideoElement>('#sealed-reader video');
+    const track = video?.srcObject instanceof MediaStream
+      ? video.srcObject.getVideoTracks()[0]
+      : undefined;
+    if (track) {
+      try {
+        await track.applyConstraints({
+          width: { ideal: 1920 },
+          height: { ideal: 1080 },
+          advanced: [{ focusMode: 'continuous' } as MediaTrackConstraintSet],
+        });
+      } catch {
+        try {
+          await track.applyConstraints({
+            width: { ideal: 1920 },
+            height: { ideal: 1080 },
+          });
+        } catch {
+          // The camera remains usable when it cannot provide these constraints.
+        }
+      }
+    }
     this.statsTimer = window.setInterval(() => {
       const video = document.querySelector<HTMLVideoElement>('#sealed-reader video');
       const track = video?.srcObject instanceof MediaStream

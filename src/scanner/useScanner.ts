@@ -4,7 +4,7 @@ import type { ScannerStats } from './QrScannerAdapter';
 import { loadPreferredCamera, savePreferredCamera } from './cameraPrefs';
 import { playBeep } from '../lib/sound';
 
-export function useScanner(active: boolean) {
+export function useScanner(enabled = true) {
   const adapter = useRef(new Html5QrcodeAdapter()).current;
   const operation = useRef(Promise.resolve());
   const [cameras, setCameras] = useState<MediaDeviceInfo[]>([]);
@@ -16,6 +16,7 @@ export function useScanner(active: boolean) {
   const [error, setError] = useState<string | null>(null);
   const [running, setRunning] = useState(false);
   const lastDecode = useRef({ value: '', at: 0 });
+  const autoStartRequested = useRef(false);
 
   const refreshCameras = useCallback(async () => {
     try {
@@ -39,6 +40,7 @@ export function useScanner(active: boolean) {
   const start = useCallback(() => {
     if (!selectedCamera) return Promise.resolve();
     operation.current = operation.current.then(async () => {
+      if (running) return;
       setError(null);
       try {
         await adapter.start(selectedCamera, (value) => {
@@ -47,7 +49,7 @@ export function useScanner(active: boolean) {
           lastDecode.current = { value, at: now };
           setStats((current) => ({ ...current, lastDecodeAt: now }));
           setDecodedText(value);
-          playBeep();
+          void playBeep();
         }, setStats);
         savePreferredCamera(selectedCamera);
         setRunning(true);
@@ -57,25 +59,24 @@ export function useScanner(active: boolean) {
       }
     });
     return operation.current;
-  }, [adapter, selectedCamera, stop]);
+  }, [adapter, running, selectedCamera, stop]);
 
   useEffect(() => {
+    if (!enabled) {
+      autoStartRequested.current = false;
+      void stop();
+      return;
+    }
     void refreshCameras();
     return () => { void stop(); };
-  }, [refreshCameras, stop]);
+  }, [enabled, refreshCameras, stop]);
 
   useEffect(() => {
-    if (!active || !selectedCamera) return;
-    let cancelled = false;
-    const frame = window.requestAnimationFrame(() => {
-      if (!cancelled) void start();
-    });
-    return () => {
-      cancelled = true;
-      window.cancelAnimationFrame(frame);
-      void stop();
-    };
-  }, [active, selectedCamera, start, stop]);
+    if (enabled && cameras.length > 0 && selectedCamera && !autoStartRequested.current) {
+      autoStartRequested.current = true;
+      void start();
+    }
+  }, [enabled, cameras, selectedCamera, start]);
 
   return { cameras, selectedCamera, setSelectedCamera, stats, decodedText, setDecodedText, error, running, refreshCameras, start, stop, adapter };
 }
