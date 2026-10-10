@@ -1,0 +1,609 @@
+{
+  "schemaVersion": 1,
+  "seedVersion": "2026-10-09.1",
+  "language": "it",
+  "units": "giorni di calendario",
+  "conventions": {
+    "null": "null = non adatto a quella conservazione (richiede giorni manuali)",
+    "fridge": "frigorifero a <=4 °C",
+    "freezer": "congelatore a -18 °C: per il freezer i giorni indicano la QUALITÀ, non la sicurezza",
+    "normalDays": "conservazione senza sottovuoto",
+    "vacuumDays": "conservazione sottovuoto, stima prudente (sempre >= normalDays)"
+  },
+  "disclaimer": "Valori aggiornati in base alla lista fornita dall'utente. Sono promemoria, non garanzie di sicurezza alimentare: in caso di dubbio su odore, aspetto o consistenza, non consumare.",
+  "foods": [
+    {
+      "id": "manzo-vitello-bistecca-spezzatino",
+      "name": "Bistecche e spezzatino di manzo/vitello",
+      "category": "Carne e Salumi (In Frigorifero)",
+      "state": "raw",
+      "aliases": [
+        "bistecca",
+        "spezzatino",
+        "manzo",
+        "vitello"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 4,
+          "vacuumDays": 12
+        },
+        "freezer": {
+          "normalDays": 180,
+          "vacuumDays": 270
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "user-list",
+      "verified": true,
+      "origin": "user",
+      "userModified": true
+    },
+    {
+      "id": "macinato-manzo-maiale",
+      "name": "Macinato di manzo o maiale",
+      "category": "Carne e Salumi (In Frigorifero)",
+      "state": "raw",
+      "aliases": [
+        "macinato",
+        "trita",
+        "manzo",
+        "maiale"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 2,
+          "vacuumDays": 5
+        },
+        "freezer": {
+          "normalDays": 90,
+          "vacuumDays": 150
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "user-list",
+      "verified": true,
+      "origin": "user",
+      "userModified": true
+    },
+    {
+      "id": "petto-pollo-tacchino",
+      "name": "Petto di pollo o tacchino",
+      "category": "Carne e Salumi (In Frigorifero)",
+      "state": "raw",
+      "aliases": [
+        "pollo",
+        "tacchino",
+        "petto",
+        "fesa"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 3,
+          "vacuumDays": 9
+        },
+        "freezer": {
+          "normalDays": 180,
+          "vacuumDays": 270
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "user-list",
+      "verified": true,
+      "origin": "user",
+      "userModified": true
+    },
+    {
+      "id": "salsicce-hamburger",
+      "name": "Salsicce fresche e hamburger",
+      "category": "Carne e Salumi (In Frigorifero)",
+      "state": "raw",
+      "aliases": [
+        "salsiccia",
+        "hamburger",
+        "salamella"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 2,
+          "vacuumDays": 7
+        },
+        "freezer": {
+          "normalDays": 60,
+          "vacuumDays": 120
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "user-list",
+      "verified": true,
+      "origin": "user",
+      "userModified": true
+    },
+    {
+      "id": "salumi-pezzo-intero",
+      "name": "Salumi in pezzo intero (es. prosciutto, salame)",
+      "category": "Carne e Salumi (In Frigorifero)",
+      "state": "other",
+      "aliases": [
+        "prosciutto",
+        "salame",
+        "intero",
+        "pezzo"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 14,
+          "vacuumDays": 60
+        },
+        "freezer": {
+          "normalDays": 60,
+          "vacuumDays": 90
+        }
+      },
+      "vacuumNote": null,
+      "notes": "Conservazione indicata 1-2 mesi.",
+      "source": "user-list",
+      "verified": true,
+      "origin": "user",
+      "userModified": true
+    },
+    {
+      "id": "salumi-affettati",
+      "name": "Salumi affettati",
+      "category": "Carne e Salumi (In Frigorifero)",
+      "state": "other",
+      "aliases": [
+        "affettati",
+        "prosciutto cotto",
+        "prosciutto crudo"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 4,
+          "vacuumDays": 21
+        },
+        "freezer": {
+          "normalDays": 30,
+          "vacuumDays": 60
+        }
+      },
+      "vacuumNote": null,
+      "notes": "Conservazione indicata 2-3 settimane.",
+      "source": "user-list",
+      "verified": true,
+      "origin": "user",
+      "userModified": true
+    },
+    {
+      "id": "filetti-pesce-bianco",
+      "name": "Filetti di pesce bianco (es. merluzzo, orata)",
+      "category": "Pesce e Crostacei (In Frigorifero)",
+      "state": "raw",
+      "aliases": [
+        "merluzzo",
+        "orata",
+        "pesce bianco",
+        "filetto"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 2,
+          "vacuumDays": 5
+        },
+        "freezer": {
+          "normalDays": 120,
+          "vacuumDays": 180
+        }
+      },
+      "vacuumNote": "Il sottovuoto in frigo non ferma i batteri anaerobi.",
+      "notes": null,
+      "source": "user-list",
+      "verified": true,
+      "origin": "user",
+      "userModified": true
+    },
+    {
+      "id": "pesce-grasso",
+      "name": "Pesce grasso (es. salmone, tonno)",
+      "category": "Pesce e Crostacei (In Frigorifero)",
+      "state": "raw",
+      "aliases": [
+        "salmone",
+        "tonno",
+        "pesce grasso"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 1,
+          "vacuumDays": 4
+        },
+        "freezer": {
+          "normalDays": 60,
+          "vacuumDays": 120
+        }
+      },
+      "vacuumNote": "Il sottovuoto in frigo non ferma i batteri anaerobi.",
+      "notes": null,
+      "source": "user-list",
+      "verified": true,
+      "origin": "user",
+      "userModified": true
+    },
+    {
+      "id": "crostacei-molluschi-puliti",
+      "name": "Crostacei e molluschi puliti (es. gamberi, calamari)",
+      "category": "Pesce e Crostacei (In Frigorifero)",
+      "state": "raw",
+      "aliases": [
+        "gamberi",
+        "calamari",
+        "crostacei",
+        "molluschi"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 2,
+          "vacuumDays": 4
+        },
+        "freezer": {
+          "normalDays": 90,
+          "vacuumDays": 150
+        }
+      },
+      "vacuumNote": "Il sottovuoto in frigo non ferma i batteri anaerobi.",
+      "notes": null,
+      "source": "user-list",
+      "verified": true,
+      "origin": "user",
+      "userModified": true
+    },
+    {
+      "id": "formaggi-pasta-dura",
+      "name": "Formaggi a pasta dura (es. Parmigiano, Pecorino, Grana)",
+      "category": "Formaggi e Latticini (In Frigorifero)",
+      "state": "other",
+      "aliases": [
+        "parmigiano",
+        "pecorino",
+        "grana",
+        "pasta dura"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 21,
+          "vacuumDays": 120
+        },
+        "freezer": {
+          "normalDays": 180,
+          "vacuumDays": 270
+        }
+      },
+      "vacuumNote": null,
+      "notes": "Conservazione indicata 2-4 mesi.",
+      "source": "user-list",
+      "verified": true,
+      "origin": "user",
+      "userModified": true
+    },
+    {
+      "id": "formaggi-pasta-semidura",
+      "name": "Formaggi a pasta semidura (es. Fontina, Emmental, Provola)",
+      "category": "Formaggi e Latticini (In Frigorifero)",
+      "state": "other",
+      "aliases": [
+        "fontina",
+        "emmental",
+        "provola",
+        "pasta semidura"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 14,
+          "vacuumDays": 42
+        },
+        "freezer": {
+          "normalDays": 90,
+          "vacuumDays": 180
+        }
+      },
+      "vacuumNote": null,
+      "notes": "Conservazione indicata 4-6 settimane.",
+      "source": "user-list",
+      "verified": true,
+      "origin": "user",
+      "userModified": true
+    },
+    {
+      "id": "formaggi-stagionati-fette",
+      "name": "Formaggi stagionati a fette",
+      "category": "Formaggi e Latticini (In Frigorifero)",
+      "state": "other",
+      "aliases": [
+        "fette",
+        "stagionato fette"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 7,
+          "vacuumDays": 28
+        },
+        "freezer": {
+          "normalDays": 60,
+          "vacuumDays": 90
+        }
+      },
+      "vacuumNote": null,
+      "notes": "Conservazione indicata 3-4 settimane.",
+      "source": "user-list",
+      "verified": true,
+      "origin": "user",
+      "userModified": true
+    },
+    {
+      "id": "burro",
+      "name": "Burro",
+      "category": "Formaggi e Latticini (In Frigorifero)",
+      "state": "other",
+      "aliases": [
+        "burro"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 21,
+          "vacuumDays": 42
+        },
+        "freezer": {
+          "normalDays": 180,
+          "vacuumDays": 270
+        }
+      },
+      "vacuumNote": null,
+      "notes": "Conservazione indicata 6 settimane.",
+      "source": "user-list",
+      "verified": true,
+      "origin": "user",
+      "userModified": true
+    },
+    {
+      "id": "insalata-foglia-lavata",
+      "name": "Insalata a foglia lavata e ben asciugata",
+      "category": "Verdura e Frutta (In Frigorifero)",
+      "state": "raw",
+      "aliases": [
+        "insalata",
+        "foglia",
+        "lattuga"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 3,
+          "vacuumDays": 14
+        },
+        "freezer": null
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "user-list",
+      "verified": true,
+      "origin": "user",
+      "userModified": true
+    },
+    {
+      "id": "verdure-dure",
+      "name": "Verdure dure (es. carote, sedano, finocchi)",
+      "category": "Verdura e Frutta (In Frigorifero)",
+      "state": "raw",
+      "aliases": [
+        "carote",
+        "sedano",
+        "finocchi"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 7,
+          "vacuumDays": 21
+        },
+        "freezer": null
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "user-list",
+      "verified": true,
+      "origin": "user",
+      "userModified": true
+    },
+    {
+      "id": "verdure-pezzi-cotte-sbollentate",
+      "name": "Verdure a pezzi cotte o sbollentate",
+      "category": "Verdura e Frutta (In Frigorifero)",
+      "state": "cooked",
+      "aliases": [
+        "cotte",
+        "sbollentate",
+        "pezzi"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 3,
+          "vacuumDays": 10
+        },
+        "freezer": {
+          "normalDays": 150,
+          "vacuumDays": 240
+        }
+      },
+      "vacuumNote": null,
+      "notes": "Nota: le verdure della famiglia dei cavoli vanno sbollentate prima del sottovuoto.",
+      "source": "user-list",
+      "verified": true,
+      "origin": "user",
+      "userModified": true
+    },
+    {
+      "id": "frutta-polpa-soda",
+      "name": "Frutta a polpa soda (es. mele, pere intere o a pezzi)",
+      "category": "Verdura e Frutta (In Frigorifero)",
+      "state": "raw",
+      "aliases": [
+        "mele",
+        "pere",
+        "frutta"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 5,
+          "vacuumDays": 21
+        },
+        "freezer": {
+          "normalDays": 180,
+          "vacuumDays": 270
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "user-list",
+      "verified": true,
+      "origin": "user",
+      "userModified": true
+    },
+    {
+      "id": "frutti-bosco-fragole",
+      "name": "Frutti di bosco e fragole (lavati e asciugati)",
+      "category": "Verdura e Frutta (In Frigorifero)",
+      "state": "raw",
+      "aliases": [
+        "mirtilli",
+        "lamponi",
+        "fragole"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 2,
+          "vacuumDays": 8
+        },
+        "freezer": {
+          "normalDays": 270,
+          "vacuumDays": 365
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "user-list",
+      "verified": true,
+      "origin": "user",
+      "userModified": true
+    },
+    {
+      "id": "zuppe-vellutate-minestroni",
+      "name": "Zuppe, vellutate e minestroni",
+      "category": "Piatti Cotti, Sughi e Preparazioni (In Frigorifero)",
+      "state": "cooked",
+      "aliases": [
+        "zuppe",
+        "vellutate",
+        "minestroni"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 3,
+          "vacuumDays": 10
+        },
+        "freezer": {
+          "normalDays": 90,
+          "vacuumDays": 150
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "user-list",
+      "verified": true,
+      "origin": "user",
+      "userModified": true
+    },
+    {
+      "id": "sughi-pomodoro-ragu",
+      "name": "Sughi di pomodoro o ragù",
+      "category": "Piatti Cotti, Sughi e Preparazioni (In Frigorifero)",
+      "state": "cooked",
+      "aliases": [
+        "sughi",
+        "pomodoro",
+        "ragù"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 4,
+          "vacuumDays": 12
+        },
+        "freezer": {
+          "normalDays": 120,
+          "vacuumDays": 180
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "user-list",
+      "verified": true,
+      "origin": "user",
+      "userModified": true
+    },
+    {
+      "id": "pasta-riso-conditi-lasagne",
+      "name": "Pasta o riso conditi / Lasagne",
+      "category": "Piatti Cotti, Sughi e Preparazioni (In Frigorifero)",
+      "state": "cooked",
+      "aliases": [
+        "pasta",
+        "riso",
+        "lasagne"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 2,
+          "vacuumDays": 8
+        },
+        "freezer": {
+          "normalDays": 60,
+          "vacuumDays": 120
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "user-list",
+      "verified": true,
+      "origin": "user",
+      "userModified": true
+    },
+    {
+      "id": "arrosti-spezzatini-cotti",
+      "name": "Arrosti e spezzatini cotti",
+      "category": "Piatti Cotti, Sughi e Preparazioni (In Frigorifero)",
+      "state": "cooked",
+      "aliases": [
+        "arrosti",
+        "spezzatini",
+        "cotti"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 3,
+          "vacuumDays": 10
+        },
+        "freezer": {
+          "normalDays": 90,
+          "vacuumDays": 150
+        }
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "user-list",
+      "verified": true,
+      "origin": "user",
+      "userModified": true
+    }
+  ]
+}

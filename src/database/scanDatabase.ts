@@ -7,6 +7,7 @@ export interface StoredScan {
   storage?: 'fridge' | 'freezer';
   storedAt?: string;
   expirationDate?: string;
+  status?: 'active' | 'consumed' | 'discarded';
 }
 
 const databaseName = 'sealed-database';
@@ -118,9 +119,10 @@ export async function saveScan(code: string): Promise<{ count: number; added: bo
     getAllRequest.onsuccess = () => {
       const alreadyStored = (getAllRequest.result as StoredScan[]).some((scan) => scan.code === code);
       if (!alreadyStored) {
-        store.add({ code, scannedAt: new Date().toISOString() } satisfies StoredScan);
+        store.add({ code, scannedAt: new Date().toISOString(), status: 'active' } satisfies StoredScan);
         added = true;
       }
+
     };
     transaction.oncomplete = () => {
       database.close();
@@ -129,6 +131,22 @@ export async function saveScan(code: string): Promise<{ count: number; added: bo
     transaction.onerror = () => {
       database.close();
       reject(new Error('Impossibile salvare il codice nel database locale.'));
+    };
+  });
+}
+
+export async function deleteScan(id: number): Promise<void> {
+  const database = await openDatabase();
+  return new Promise((resolve, reject) => {
+    const transaction = database.transaction(storeName, 'readwrite');
+    transaction.objectStore(storeName).delete(id);
+    transaction.oncomplete = () => {
+      database.close();
+      resolve();
+    };
+    transaction.onerror = () => {
+      database.close();
+      reject(new Error('Impossibile liberare il contenitore.'));
     };
   });
 }

@@ -2,11 +2,12 @@ import { useEffect, useRef, useState } from 'react';
 import { ScanDiagnostics } from './ScanDiagnostics';
 import { useScanner } from './useScanner';
 import { clearScans, getScans, saveScan, updateScan, type StoredScan } from '../database/scanDatabase';
-import foodsSeed from '../database/foods.seed.json';
+import { getContainerType } from '../database/containerCatalog';
+import foodsSeed from '../database/food.seed.json';
 
 type Food = (typeof foodsSeed.foods)[number];
 type StorageMode = 'fridge' | 'freezer';
-const containerSizes: StoredScan['size'][] = ['S', 'M', 'L', 'XL'];
+type Screen = 'home' | 'scanner' | 'settings' | 'foods' | 'detail';
 const today = () => new Date().toISOString().slice(0, 10);
 
 function getFood(id?: string): Food | undefined {
@@ -22,8 +23,20 @@ function getExpirationDate(container: StoredScan): string | null {
   return date.toLocaleDateString('it-IT');
 }
 
+function getRemainingDays(container: StoredScan): number | null {
+  const food = getFood(container.foodId);
+  const days = food?.shelfLife[container.storage ?? 'fridge']?.normalDays;
+  if (!container.storedAt || days == null) return null;
+  const date = new Date(`${container.storedAt}T00:00:00`);
+  date.setDate(date.getDate() + days);
+  return Math.ceil((date.getTime() - new Date(`${today()}T00:00:00`).getTime()) / 86400000);
+}
+
 export function ScannerView() {
-  const scanner = useScanner();
+  const [screen, setScreen] = useState<Screen>('home');
+  const [filter, setFilter] = useState<'all' | StorageMode>('all');
+  const [selectedContainerId, setSelectedContainerId] = useState<number | undefined>();
+  const scanner = useScanner(screen === 'scanner');
   const [showDiagnostics, setShowDiagnostics] = useState(false);
   const [flash, setFlash] = useState(false);
   const [lab, setLab] = useState({ active: false, attempts: 0, successes: 0, startedAt: 0, averageMs: 0 });
@@ -78,7 +91,33 @@ export function ScannerView() {
     void saveScan(scanner.decodedText)
       .then(({ count, added }) => {
         setSavedScanCount(count);
-        void getScans().then(setContainers);
+        return getScans().then(async (scans) => {
+          let scannedContainer = scans.find((scan) => scan.code === scanner.decodedText);
+          const isInUse = scannedContainer != null
+            && (!scannedContainer.status || scannedContainer.status === 'active')
+            && scannedContainer.foodId != null;
+
+          if (scannedContainer && !isInUse && scannedContainer.id !== undefined) {
+            await updateScan(scannedContainer.id, {
+              foodId: undefined,
+              storage: undefined,
+              storedAt: undefined,
+              expirationDate: undefined,
+              status: 'active',
+            });
+            scans = await getScans();
+            scannedContainer = scans.find((scan) => scan.code === scanner.decodedText);
+          }
+
+          setContainers(scans);
+          if (!isInUse && scannedContainer) {
+            setSelectedContainerId(scannedContainer.id);
+            setScreen('foods');
+          }
+          return { added, count };
+        });
+      })
+      .then(({ count, added }) => {
         setDatabaseStatus(added
           ? `Nuovo contenitore salvato: ${count} codici unici.`
           : `Contenitore già presente: ${count} codici unici.`);
@@ -111,97 +150,125 @@ export function ScannerView() {
     }
   };
 
+  const releaseContainer = async (container: StoredScan, status: 'consumed' | 'discarded') => {
+    if (container.id === undefined) return;
+    try {
+      await updateScan(container.id, { status });
+      const scans = await getScans();
+      setContainers(scans);
+      setSelectedContainerId(undefined);
+      setScreen('home');
+      setDatabaseStatus(status === 'consumed' ? 'Contenitore liberato: cibo mangiato.' : 'Contenitore liberato: cibo buttato.');
+    } catch (reason) {
+      setDatabaseStatus(reason instanceof Error ? reason.message : 'Impossibile liberare il contenitore.');
+    }
+  };
+
   const decodedContainer = containers.find((container) => container.code === scanner.decodedText);
+  const activeContainers = containers.filter((container) => !container.status || container.status === 'active');
+  const visibleContainers = activeContainers.filter((container) => filter === 'all' || (container.storage ?? 'fridge') === filter);
+  const expiredCount = activeContainers.filter((container) => (getRemainingDays(container) ?? 1) < 0).length;
+  const expiringCount = activeContainers.filter((container) => {
+    const days = getRemainingDays(container);
+    return days !== null && days >= 0 && days <= 2;
+  }).length;
 
   return (
-    <main className="app-shell">
-      <header>
-        <p className="eyebrow">SEALED</p>
-        <h1>Scanner QR</h1>
-        <p className="intro">Inquadra il codice sul coperchio del contenitore.</p>
+    <main className={`app-shell${screen === 'scanner' ? ' scanner-screen' : ''}`}>
+      <header className="app-header">
+        <div>
+          <p className="eyebrow">SEALED</p>
+          <h1>{screen === 'home' ? 'Inventario' : screen === 'scanner' ? 'Scansiona' : 'Impostazioni'}</h1>
+          <p className="intro">{screen === 'home' ? `${activeContainers.length} contenitori in uso` : screen === 'scanner' ? 'Inquadra il QR sul coperchio' : screen === 'foods' ? 'Scegli il contenuto del contenitore' : screen === 'detail' ? 'Dettaglio contenitore' : 'Personalizza la tua esperienza'}</p>
+        </div>
+        <button className="qr-button" onClick={() => setScreen('scanner')} aria-label="Apri scanner QR">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h6v6H4V4Zm10 0h6v6h-6V4ZM4 14h6v6H4v-6Zm10 3h2v3h-2v-3Zm3-3h3v2h-3v-2Zm0 5h3v2h-3v-2Zm-3-5h2v2h-2v-2ZM7 7h1v1H7V7Zm10 0h1v1h-1V7ZM7 17h1v1H7v-1Z" /></svg>
+        </button>
       </header>
-      <section className="scanner-card">
-        <div id="sealed-reader" className={`reader${flash ? ' reader-flash' : ''}`} aria-label="Area di scansione" />
-        <div className="controls">
-          <label htmlFor="camera">Fotocamera</label>
-          <select id="camera" value={scanner.selectedCamera} onChange={(event) => scanner.setSelectedCamera(event.target.value)} disabled={scanner.running}>
-            {scanner.cameras.length === 0 && <option value="">Nessuna fotocamera rilevata</option>}
-            {scanner.cameras.map((camera, index) => <option key={camera.deviceId} value={camera.deviceId}>{camera.label || `Fotocamera ${index + 1}`}</option>)}
-          </select>
-          <div className="button-row">
-            {!scanner.running
-              ? <button onClick={() => void scanner.start()} disabled={!scanner.selectedCamera}>Avvia fotocamera</button>
-              : <button className="secondary" onClick={() => void scanner.stop()}>Ferma</button>}
-            <button className="secondary" onClick={() => void scanner.refreshCameras()}>Aggiorna elenco</button>
-          </div>
-        </div>
-        {scanner.error && <p className="error" role="alert">{scanner.error}</p>}
-        {scanner.decodedText && <p className="success">Contenitore letto: <strong>{getFood(decodedContainer?.foodId)?.name || scanner.decodedText}</strong></p>}
-      </section>
-      <section className="tools">
-        <button className="link-button" onClick={() => setShowDiagnostics((visible) => !visible)}>
-          {showDiagnostics ? 'Nascondi diagnostica' : 'Mostra diagnostica'}
-        </button>
-        <button className="link-button" onClick={startLab} disabled={lab.active}>Avvia Scanner lab</button>
-        {lab.active && <p>Analisi in corso: {lab.attempts}/20 tentativi</p>}
-        {!lab.active && lab.attempts > 0 && <p>Scanner lab: {lab.successes}/20 successi ({Math.round(lab.successes / lab.attempts * 100)}%), tempo medio {Math.round(lab.averageMs)} ms.</p>}
-      </section>
-      <section className="storage-card">
-        <h2>Database locale</h2>
-        <p>I codici vengono memorizzati automaticamente nel browser, senza file o permessi.</p>
-        <p role="status">{databaseStatus} Totale: {savedScanCount}.</p>
-        <button className="secondary" onClick={() => void clearDatabase()} disabled={savedScanCount === 0}>
-          Svuota database
-        </button>
-        <div className="container-list">
-          <h3>Contenitori</h3>
-          {containers.length === 0
-            ? <p>Nessun contenitore memorizzato.</p>
-            : containers.map((container) => (
-              <article className="container-item" key={container.id}>
-                <div>
-                  <label>Dimensione
-                    <select value={container.size ?? ''} onChange={(event) => void updateContainer(container, { size: event.target.value as StoredScan['size'] })}>
-                      <option value="">Seleziona</option>
-                      {containerSizes.map((size) => <option key={size} value={size}>{size}</option>)}
-                    </select>
-                  </label>
-                  <label>Alimento
-                    <select
-                      value={container.foodId ?? ''}
-                      onChange={(event) => void updateContainer(container, {
-                        foodId: event.target.value,
-                        storedAt: container.storedAt ?? today(),
-                        storage: container.storage ?? 'fridge',
-                      })}
-                    >
-                      <option value="">Seleziona alimento</option>
-                      {foodsSeed.foods.map((food) => <option key={food.id} value={food.id}>{food.name}</option>)}
-                    </select>
-                  </label>
-                  <label>Conservazione
-                    <select
-                      value={container.storage ?? 'fridge'}
-                      onChange={(event) => void updateContainer(container, {
-                        storage: event.target.value as StorageMode,
-                        storedAt: container.storedAt ?? today(),
-                      })}
-                    >
-                      <option value="fridge">Frigorifero</option>
-                      <option value="freezer">Congelatore</option>
-                    </select>
-                  </label>
-                  <label>Inserito il
-                    <input type="date" value={container.storedAt ?? today()} onChange={(event) => void updateContainer(container, { storedAt: event.target.value })} />
-                  </label>
-                  <code>{container.code}</code>
-                  {getExpirationDate(container) && <span className="expiry">Scadenza: {getExpirationDate(container)}</span>}
-                </div>
-              </article>
-            ))}
-        </div>
-      </section>
-      <ScanDiagnostics stats={scanner.stats} visible={showDiagnostics} />
+      {screen === 'home' ? (
+        <>
+          <section className="stats-grid">
+            <div className="stat-card danger"><strong>{expiredCount}</strong><span>Scaduti</span></div>
+            <div className="stat-card caution"><strong>{expiringCount}</strong><span>In scadenza</span></div>
+            <div className="stat-card good"><strong>{Math.max(0, savedScanCount - expiredCount - expiringCount)}</strong><span>Ok</span></div>
+          </section>
+          <div className="filter-row"><button className={filter === 'all' ? 'filter active' : 'filter'} onClick={() => setFilter('all')}>Tutti</button><button className={filter === 'fridge' ? 'filter active' : 'filter'} onClick={() => setFilter('fridge')}>Frigo</button><button className={filter === 'freezer' ? 'filter active' : 'filter'} onClick={() => setFilter('freezer')}>Freezer</button></div>
+          <section className="storage-card">
+            <div className="section-heading"><div><h2>I tuoi contenitori</h2><p>{databaseStatus}</p></div><button className="secondary" onClick={() => void clearDatabase()} disabled={savedScanCount === 0}>Svuota</button></div>
+            <div className="container-list">
+              {visibleContainers.length === 0
+                ? <div className="empty-state"><span>✦</span><h3>Nessun contenitore ancora</h3><p>Scansiona il QR code di un contenitore per iniziare.</p></div>
+                : visibleContainers.map((container) => {
+                  const food = getFood(container.foodId);
+                  const remaining = getRemainingDays(container);
+                  return <article className="container-item modern-item" key={container.id}>
+                    <div className="food-mark">{food?.name?.slice(0, 1) ?? '?'}</div>
+                    <button className="container-main container-open" onClick={() => { setSelectedContainerId(container.id); setScreen('detail'); }}>
+                      <strong>{food?.name || 'Alimento da configurare'}</strong>
+                      <span>{getContainerType(container.code)?.description || 'Contenitore'} · {container.storage === 'freezer' ? 'Congelatore' : 'Frigorifero'}</span>
+                      <code>{container.code}</code>
+                    </button>
+                    <div className={`days-left${remaining !== null && remaining <= 2 ? ' warning' : ''}`}>
+                      <strong>{remaining ?? '—'}</strong><span>{remaining === 1 ? 'giorno' : 'giorni'}</span>
+                    </div>
+                    <span className="detail-arrow" aria-hidden="true">›</span>
+                  </article>;
+                })}
+            </div>
+          </section>
+        </>
+      ) : screen === 'foods' ? (
+        <section className="food-page">
+          <button className="back-button" onClick={() => setScreen('home')}>‹ Torna all'inventario</button>
+          <h2>Che cosa hai conservato?</h2>
+          <p>Scegli il cibo per calcolare automaticamente i giorni rimanenti.</p>
+          <div className="food-options">{foodsSeed.foods.map((food) => <button key={food.id} className="food-option" onClick={() => {
+            const container = containers.find((item) => item.id === selectedContainerId);
+            if (container) void updateContainer(container, { foodId: food.id, storedAt: container.storedAt ?? today(), storage: container.storage ?? 'fridge' });
+            setScreen('detail');
+          }}><span>{food.name.slice(0, 1)}</span><strong>{food.name}</strong></button>)}</div>
+        </section>
+      ) : screen === 'detail' ? (
+        <section className="detail-page">
+          {(() => {
+            const container = containers.find((item) => item.id === selectedContainerId);
+            if (!container) return <button className="back-button" onClick={() => setScreen('home')}>‹ Torna all'inventario</button>;
+            const food = getFood(container.foodId);
+            return <><button className="back-button" onClick={() => setScreen('home')}>‹ Contenitori</button><h2>{food?.name || 'Contenitore'}</h2><p className="detail-status">{getRemainingDays(container) === null ? 'Inserisci il cibo per calcolare la durata' : `Scade il ${getExpirationDate(container)}`}</p><div className="detail-card"><div><span>Contenitore</span><strong>{getContainerType(container.code)?.description || 'Non riconosciuto'}</strong></div><div><span>Conservazione</span><select value={container.storage ?? 'fridge'} onChange={(event) => void updateContainer(container, { storage: event.target.value as StorageMode, storedAt: container.storedAt ?? today() })}><option value="fridge">Frigorifero</option><option value="freezer">Congelatore</option></select></div><div><span>Inserito il</span><input type="date" value={container.storedAt ?? today()} onChange={(event) => void updateContainer(container, { storedAt: event.target.value })} /></div><div><span>QR</span><code>{container.code}</code></div></div><div className="release-actions"><button className="eat-button" onClick={() => void releaseContainer(container, 'consumed')}>✓ Mangiato</button><button className="discard-button" onClick={() => void releaseContainer(container, 'discarded')}>♧ Buttato</button></div><button className="food-change" onClick={() => setScreen('foods')}>Modifica alimento</button></>;
+          })()}
+        </section>
+      ) : (
+        screen === 'scanner' ? <>
+          <section className="scanner-card scanner-viewport">
+            <div className="scanner-topbar">
+              <button className="scanner-icon-button" onClick={() => setScreen('home')} aria-label="Chiudi scanner">×</button>
+              <strong>Scansiona</strong>
+              <button className="scanner-icon-button" aria-label="Illuminazione">ϟ</button>
+            </div>
+            <p className="camera-status">1080p · 30 fps · Fotocamera posteriore</p>
+            <div id="sealed-reader" className={`reader${flash ? ' reader-flash' : ''}`} aria-label="Area di scansione" />
+            <div className="scan-guide"><strong>Inquadra il QR sul coperchio</strong><span>Tieni il contenitore a 25–40 cm, con luce diffusa e senza riflessi sul QR.</span></div>
+            {scanner.error && <p className="error" role="alert">{scanner.error}</p>}
+            {scanner.decodedText && <p className="success">Contenitore letto: <strong>{getFood(decodedContainer?.foodId)?.name || scanner.decodedText}</strong></p>}
+          </section>
+        </> : <section className="settings-list">
+          <h2>DATI</h2>
+          <button className="settings-row" onClick={() => setDatabaseStatus('Backup locale disponibile nel browser.')}>↧ <span><strong>Esporta backup</strong><small>Salva i tuoi dati localmente</small></span><b>›</b></button>
+          <button className="settings-row" onClick={() => setDatabaseStatus('Importazione disponibile prossimamente.')}>↥ <span><strong>Importa backup</strong><small>Ripristina i dati salvati</small></span><b>›</b></button>
+          <h2>CATALOGO</h2>
+          <button className="settings-row" onClick={() => setScreen('foods')}>☷ <span><strong>Catalogo alimenti</strong><small>{foodsSeed.foods.length} voci disponibili</small></span><b>›</b></button>
+          <h2>SCANSIONE</h2>
+          <button className="settings-row" onClick={() => setScreen('scanner')}>▣ <span><strong>Fotocamera</strong><small>Posteriore</small></span><b>›</b></button>
+          <button className="settings-row" onClick={() => setShowDiagnostics((visible) => !visible)}>▥ <span><strong>Mostra diagnostica</strong><small>Risoluzione, fps e frame falliti</small></span><b>{showDiagnostics ? 'ON' : 'OFF'}</b></button>
+          <button className="settings-row" onClick={startLab}>⌗ <span><strong>Scanner lab</strong><small>Misura la qualità della scansione</small></span><b>›</b></button>
+          <p className="disclaimer">Le durate sono stime prudenti, non garanzie di sicurezza alimentare. I dati restano solo su questo dispositivo.</p>
+        </section>
+      )}
+      <nav className={`bottom-nav${screen === 'scanner' ? ' hidden' : ''}`} aria-label="Navigazione principale">
+        <button className={screen === 'home' ? 'nav-item active' : 'nav-item'} onClick={() => setScreen('home')}><span>☷</span>Inventario</button>
+        <button className="nav-scan" onClick={() => setScreen('scanner')} aria-label="Scansiona">⌗</button>
+        <button className={screen === 'settings' ? 'nav-item active' : 'nav-item'} onClick={() => setScreen('settings')}><span>☷</span>Impostazioni</button>
+      </nav>
       <div id="sealed-file-reader" hidden />
     </main>
   );

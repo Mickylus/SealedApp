@@ -1,0 +1,14 @@
+codice;descrizione;
+1M3J;Borsa L;
+52WS;Borsa M;
+6KND;Borsa S;
+17F9;Ciotola L;
+3XD9;Scatola L verde;
+0D36;Scatola M grigia;
+23KQ;Scatola M verde;
+31ZD;Scatola S grigia;
+0UNL;Ciotola S;
+40KW;Scatola L verde;
+23KP;Scatola M verde;
+1DHZ;Ciotola M;
+0KDV;Scatola M verde;

@@ -4,7 +4,7 @@ import type { ScannerStats } from './QrScannerAdapter';
 import { loadPreferredCamera, savePreferredCamera } from './cameraPrefs';
 import { playBeep } from '../lib/sound';
 
-export function useScanner() {
+export function useScanner(active: boolean) {
   const adapter = useRef(new Html5QrcodeAdapter()).current;
   const operation = useRef(Promise.resolve());
   const [cameras, setCameras] = useState<MediaDeviceInfo[]>([]);
@@ -16,7 +16,6 @@ export function useScanner() {
   const [error, setError] = useState<string | null>(null);
   const [running, setRunning] = useState(false);
   const lastDecode = useRef({ value: '', at: 0 });
-  const autoStartRequested = useRef(false);
 
   const refreshCameras = useCallback(async () => {
     try {
@@ -40,7 +39,6 @@ export function useScanner() {
   const start = useCallback(() => {
     if (!selectedCamera) return Promise.resolve();
     operation.current = operation.current.then(async () => {
-      if (running) return;
       setError(null);
       try {
         await adapter.start(selectedCamera, (value) => {
@@ -59,7 +57,7 @@ export function useScanner() {
       }
     });
     return operation.current;
-  }, [adapter, running, selectedCamera, stop]);
+  }, [adapter, selectedCamera, stop]);
 
   useEffect(() => {
     void refreshCameras();
@@ -67,11 +65,17 @@ export function useScanner() {
   }, [refreshCameras, stop]);
 
   useEffect(() => {
-    if (cameras.length > 0 && selectedCamera && !autoStartRequested.current) {
-      autoStartRequested.current = true;
-      void start();
-    }
-  }, [cameras, selectedCamera, start]);
+    if (!active || !selectedCamera) return;
+    let cancelled = false;
+    const frame = window.requestAnimationFrame(() => {
+      if (!cancelled) void start();
+    });
+    return () => {
+      cancelled = true;
+      window.cancelAnimationFrame(frame);
+      void stop();
+    };
+  }, [active, selectedCamera, start, stop]);
 
   return { cameras, selectedCamera, setSelectedCamera, stats, decodedText, setDecodedText, error, running, refreshCameras, start, stop, adapter };
 }
