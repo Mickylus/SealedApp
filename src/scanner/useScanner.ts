@@ -37,6 +37,25 @@ export function useScanner(enabled = true) {
     return operation.current;
   }, [adapter]);
 
+  const decode = useCallback((value: string) => {
+    const decodedValue = value.trim();
+    if (!decodedValue) return;
+    const now = Date.now();
+    if (lastDecode.current.value === decodedValue && now - lastDecode.current.at < 3000) return;
+    lastDecode.current = { value: decodedValue, at: now };
+    setStats((current) => ({ ...current, lastDecodeAt: now }));
+    setDecodedText(decodedValue);
+    void playBeep();
+  }, []);
+
+  const scanFile = useCallback(async (file: File) => {
+    try {
+      decode(await adapter.scanFile(file));
+    } catch (reason) {
+      setError(reason instanceof Error ? `Impossibile leggere la foto: ${reason.message}` : 'Impossibile leggere il QR dalla foto.');
+    }
+  }, [adapter, decode]);
+
   const start = useCallback(() => {
     if (!selectedCamera) return Promise.resolve();
     operation.current = operation.current.then(async () => {
@@ -44,12 +63,7 @@ export function useScanner(enabled = true) {
       setError(null);
       try {
         await adapter.start(selectedCamera, (value) => {
-          const now = Date.now();
-          if (lastDecode.current.value === value && now - lastDecode.current.at < 3000) return;
-          lastDecode.current = { value, at: now };
-          setStats((current) => ({ ...current, lastDecodeAt: now }));
-          setDecodedText(value);
-          void playBeep();
+          decode(value);
         }, setStats);
         savePreferredCamera(selectedCamera);
         setRunning(true);
@@ -59,7 +73,7 @@ export function useScanner(enabled = true) {
       }
     });
     return operation.current;
-  }, [adapter, running, selectedCamera, stop]);
+  }, [adapter, decode, running, selectedCamera, stop]);
 
   useEffect(() => {
     if (!enabled) {
@@ -78,5 +92,5 @@ export function useScanner(enabled = true) {
     }
   }, [enabled, cameras, selectedCamera, start]);
 
-  return { cameras, selectedCamera, setSelectedCamera, stats, decodedText, setDecodedText, error, running, refreshCameras, start, stop, adapter };
+  return { cameras, selectedCamera, setSelectedCamera, stats, decodedText, setDecodedText, decode, error, running, refreshCameras, start, stop, scanFile, adapter };
 }

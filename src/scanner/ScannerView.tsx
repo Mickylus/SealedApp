@@ -43,6 +43,8 @@ export function ScannerView() {
   const [savedScanCount, setSavedScanCount] = useState(0);
   const [databaseStatus, setDatabaseStatus] = useState('Database locale pronto.');
   const [containers, setContainers] = useState<StoredScan[]>([]);
+  const [manualCode, setManualCode] = useState('');
+  const [showManualCode, setShowManualCode] = useState(false);
   const labStart = useRef(0);
   const labLastDecode = useRef<number | null>(null);
   const persistedDecodeAt = useRef<number | null>(null);
@@ -250,6 +252,34 @@ export function ScannerView() {
             <div className="scan-guide"><strong>Inquadra il QR sul coperchio</strong><span>Tieni il contenitore a 25–40 cm, con luce diffusa e senza riflessi sul QR.</span></div>
             {scanner.error && <p className="error" role="alert">{scanner.error}</p>}
             {scanner.decodedText && <p className="success">Contenitore letto: <strong>{getFood(decodedContainer?.foodId)?.name || scanner.decodedText}</strong></p>}
+            <section className="scanner-actions" aria-label="Altre modalità di scansione">
+              <p>Non hai il QR a portata di mano?</p>
+              <div className="scanner-action-row">
+                <button className="scanner-action" type="button" onClick={() => setShowManualCode((visible) => !visible)}>
+                  <span aria-hidden="true">⌨</span> Inserisci codice
+                </button>
+                <label className="scanner-action" htmlFor="qr-photo">
+                  <span aria-hidden="true">▧</span> Da foto
+                </label>
+                <input id="qr-photo" className="visually-hidden" type="file" accept="image/*" onChange={(event) => {
+                  const file = event.target.files?.[0];
+                  if (file) void scanner.scanFile(file);
+                  event.target.value = '';
+                }} />
+              </div>
+              {showManualCode && <form className="manual-code-form" onSubmit={(event) => {
+                event.preventDefault();
+                scanner.decode(manualCode);
+                setManualCode('');
+                setShowManualCode(false);
+              }}>
+                <label htmlFor="manual-code">Codice del contenitore</label>
+                <div>
+                  <input id="manual-code" value={manualCode} onChange={(event) => setManualCode(event.target.value)} placeholder="es. 4MQZS" autoFocus />
+                  <button type="submit" disabled={!manualCode.trim()}>Conferma</button>
+                </div>
+              </form>}
+            </section>
           </section>
         </> : <section className="settings-list">
           <h2>DATI</h2>

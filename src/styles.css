@@ -79,6 +79,7 @@ h1 { margin: 5px 0 10px; color: var(--wine-dark); font-size: clamp(2.35rem, 8vw,
 .container-item code { color: var(--ink-muted); overflow-wrap: anywhere; }
 .container-item button { flex: 0 0 auto; padding: 8px 10px; }
 .container-item input { min-width: 0; border: 1px solid var(--line); border-radius: 9px; padding: 8px; color: var(--wine-dark); background: #fff; }
+button:not(:disabled):hover { background: var(--wine-dark); transform: translateY(-1px); }
 .modern-item { position: relative; display: grid; grid-template-columns: 44px 1fr auto; align-items: center; }
 .food-mark { display: grid; place-items: center; width: 40px; height: 40px; color: var(--wine); background: var(--wine-soft); border-radius: 12px; font-size: 1.15rem; font-weight: 900; }
 .container-main { display: grid; gap: 4px; }
@@ -103,6 +104,8 @@ h1 { margin: 5px 0 10px; color: var(--wine-dark); font-size: clamp(2.35rem, 8vw,
 .settings-row span { display: grid; gap: 3px; flex: 1; }
 .settings-row small { color: var(--ink-muted); font-size: .78rem; }
 .settings-row b { color: var(--ink-muted); }
+.settings-row:hover:not(:disabled) { color: #fff; background: var(--wine-dark); }
+.settings-row:hover:not(:disabled) small, .settings-row:hover:not(:disabled) b { color: rgba(255,255,255,.72); }
 .disclaimer { margin: 24px 3px; color: var(--ink-muted); font-size: .78rem; line-height: 1.45; }
 .bottom-nav { position: fixed; z-index: 3; bottom: 0; left: 50%; display: grid; grid-template-columns: 1fr 64px 1fr; align-items: end; width: min(430px, 100%); padding: 10px 20px 12px; transform: translateX(-50%); background: rgba(255, 255, 255, .96); border-top: 1px solid var(--line); }
 .bottom-nav.hidden { display: none; }
@@ -119,7 +122,7 @@ h1 { margin: 5px 0 10px; color: var(--wine-dark); font-size: clamp(2.35rem, 8vw,
 .scanner-icon-button { display: grid; place-items: center; width: 42px; height: 42px; padding: 0; color: #fff; background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.08); border-radius: 12px; font-size: 1.7rem; line-height: 1; }
 .scanner-icon-button:hover:not(:disabled) { color: #fff; background: rgba(255,255,255,.26); }
 .camera-status { align-self: center; margin: 14px 0 22px; padding: 7px 13px; color: rgba(255,255,255,.82); background: rgba(255,255,255,.13); border-radius: 20px; font-size: .75rem; }
-.scanner-viewport .reader { position: relative; width: 100%; height: min(68vh, 620px); min-height: 420px; flex: 0 0 auto; aspect-ratio: 3 / 4; border: 0; border-radius: 22px; background: #0d302b; }
+.scanner-viewport .reader { position: relative; width: 100%; height: min(54vh, 520px); min-height: 300px; flex: 0 0 auto; aspect-ratio: 3 / 4; border: 0; border-radius: 22px; background: #0d302b; }
 .scanner-viewport .reader video { height: 100% !important; object-fit: cover; }
 .scanner-viewport .reader #qr-shaded-region { display: none !important; }
 .scanner-viewport .reader::after { position: absolute; inset: 18% 14%; content: ''; border: 2px solid rgba(118,216,195,.9); border-radius: 18px; box-shadow: 0 0 0 999px rgba(7,31,29,.08); pointer-events: none; }
@@ -127,6 +130,18 @@ h1 { margin: 5px 0 10px; color: var(--wine-dark); font-size: clamp(2.35rem, 8vw,
 .scan-guide { display: grid; gap: 7px; padding: 24px 8px 0; text-align: center; }
 .scan-guide strong { font-size: 1rem; }
 .scan-guide span { color: rgba(255,255,255,.68); font-size: .78rem; line-height: 1.4; }
+.scanner-actions { margin: 24px -22px -34px; padding: 18px 22px 24px; color: var(--wine-dark); background: var(--paper); border-radius: 24px 24px 0 0; }
+.scanner-actions p { margin: 0 0 12px; color: var(--ink-muted); font-size: .8rem; text-align: center; }
+.scanner-action-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.scanner-action { display: flex; align-items: center; justify-content: center; gap: 7px; min-height: 44px; padding: 10px 8px; color: var(--wine-dark); background: #f3f7f5; border: 1px solid var(--line); border-radius: 12px; font-size: .78rem; font-weight: 800; text-align: center; cursor: pointer; }
+.scanner-action:hover { color: var(--wine-dark); background: var(--wine-soft); transform: translateY(-1px); }
+.scanner-action span { color: var(--wine); font-size: 1rem; }
+.manual-code-form { display: grid; gap: 7px; margin-top: 12px; }
+.manual-code-form label { color: var(--ink-muted); font-size: .75rem; }
+.manual-code-form > div { display: flex; gap: 7px; }
+.manual-code-form input { min-width: 0; flex: 1; padding: 10px 11px; color: var(--wine-dark); background: #fff; border: 1px solid var(--line); border-radius: 10px; }
+.manual-code-form button { padding: 10px 12px; font-size: .78rem; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 .scanner-viewport .error { color: #ffb9b1; text-align: center; }
 .scanner-viewport .success { color: #8de0ca; text-align: center; }
 .food-page, .detail-page { padding-top: 8px; }
@@ -160,7 +175,6 @@ label { color: var(--ink-muted); font-size: .9rem; }
 select { border: 1px solid var(--line); border-radius: 10px; padding: 11px; color: var(--wine-dark); background: #fff; }
 .button-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
 button { border: 0; border-radius: 10px; padding: 11px 15px; cursor: pointer; color: #fffaf2; background: var(--wine); font-weight: 800; transition: background .2s ease, transform .2s ease; }
-button:hover:not(:disabled) { background: var(--wine-dark); transform: translateY(-1px); }
 button.secondary:hover:not(:disabled), .link-button:hover:not(:disabled), .filter:hover:not(:disabled) { color: #fff; background: var(--wine-dark); }
 button:disabled { cursor: not-allowed; opacity: .45; }
 button.secondary, .link-button { color: var(--wine-dark); background: var(--wine-soft); }
@@ -180,4 +194,9 @@ dd { color: var(--wine-dark); text-align: right; margin: 0; overflow-wrap: anywh
   .reader { min-height: 280px; }
   .container-item { align-items: stretch; flex-direction: column; }
   .container-item button { align-self: flex-start; }
+}
+@media (max-height: 700px) {
+  .scanner-viewport .reader { height: 42vh; min-height: 250px; }
+  .scan-guide { padding-top: 14px; }
+  .scanner-actions { margin-top: 16px; padding-bottom: 16px; }
 }
