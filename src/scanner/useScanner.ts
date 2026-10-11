@@ -19,12 +19,19 @@ export function useScanner(enabled = true) {
   const lastDecode = useRef({ value: '', at: 0 });
   const autoStartRequested = useRef(false);
 
+  const isRearCamera = (camera: MediaDeviceInfo) => /back|rear|environment|posteriore|principale/i.test(camera.label);
+
   const refreshCameras = useCallback(async () => {
     try {
       const list = await adapter.listCameras();
       setCameras(list);
-      setSelectedCamera((current) => list.some((camera) => camera.deviceId === current) ? current : list[0]?.deviceId ?? '');
-      setError(list.length === 0 ? 'Nessuna fotocamera disponibile.' : null);
+      const rearCamera = list.find(isRearCamera);
+      setSelectedCamera(rearCamera?.deviceId ?? '');
+      setError(list.length === 0
+        ? 'Nessuna fotocamera disponibile.'
+        : rearCamera
+          ? null
+          : 'Fotocamera posteriore non disponibile.');
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : 'Impossibile elencare le fotocamere.');
     }
@@ -107,5 +114,5 @@ export function useScanner(enabled = true) {
     }
   }, [enabled, cameras, selectedCamera, start]);
 
-  return { cameras, selectedCamera, setSelectedCamera, stats, decodedText, setDecodedText, decode, error, running, refreshCameras, start, stop, scanFile, adapter };
+  return { cameras, selectedCamera, setSelectedCamera, stats, decodedText, setDecodedText, decode, error, setError, running, refreshCameras, start, stop, scanFile, adapter };
 }

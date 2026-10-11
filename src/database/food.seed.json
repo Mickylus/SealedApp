@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "seedVersion": "2026-10-09.1",
+  "seedVersion": "2026-10-11.1",
   "language": "it",
   "units": "giorni di calendario",
   "conventions": {
@@ -25,8 +25,8 @@
       ],
       "shelfLife": {
         "fridge": {
-          "normalDays": 4,
-          "vacuumDays": 12
+          "normalDays": 6,
+          "vacuumDays": 15
         },
         "freezer": {
           "normalDays": 180,
@@ -53,8 +53,8 @@
       ],
       "shelfLife": {
         "fridge": {
-          "normalDays": 2,
-          "vacuumDays": 5
+          "normalDays": 4,
+          "vacuumDays": 8
         },
         "freezer": {
           "normalDays": 90,
@@ -81,8 +81,8 @@
       ],
       "shelfLife": {
         "fridge": {
-          "normalDays": 3,
-          "vacuumDays": 9
+          "normalDays": 5,
+          "vacuumDays": 12
         },
         "freezer": {
           "normalDays": 180,
@@ -108,8 +108,8 @@
       ],
       "shelfLife": {
         "fridge": {
-          "normalDays": 2,
-          "vacuumDays": 7
+          "normalDays": 4,
+          "vacuumDays": 10
         },
         "freezer": {
           "normalDays": 60,
@@ -136,8 +136,8 @@
       ],
       "shelfLife": {
         "fridge": {
-          "normalDays": 14,
-          "vacuumDays": 60
+          "normalDays": 16,
+          "vacuumDays": 63
         },
         "freezer": {
           "normalDays": 60,
@@ -163,8 +163,8 @@
       ],
       "shelfLife": {
         "fridge": {
-          "normalDays": 4,
-          "vacuumDays": 21
+          "normalDays": 6,
+          "vacuumDays": 24
         },
         "freezer": {
           "normalDays": 30,
@@ -191,8 +191,8 @@
       ],
       "shelfLife": {
         "fridge": {
-          "normalDays": 2,
-          "vacuumDays": 5
+          "normalDays": 4,
+          "vacuumDays": 8
         },
         "freezer": {
           "normalDays": 120,
@@ -218,8 +218,8 @@
       ],
       "shelfLife": {
         "fridge": {
-          "normalDays": 1,
-          "vacuumDays": 4
+          "normalDays": 3,
+          "vacuumDays": 7
         },
         "freezer": {
           "normalDays": 60,
@@ -246,8 +246,8 @@
       ],
       "shelfLife": {
         "fridge": {
-          "normalDays": 2,
-          "vacuumDays": 4
+          "normalDays": 4,
+          "vacuumDays": 7
         },
         "freezer": {
           "normalDays": 90,
@@ -274,8 +274,8 @@
       ],
       "shelfLife": {
         "fridge": {
-          "normalDays": 21,
-          "vacuumDays": 120
+          "normalDays": 23,
+          "vacuumDays": 123
         },
         "freezer": {
           "normalDays": 180,
@@ -302,8 +302,8 @@
       ],
       "shelfLife": {
         "fridge": {
-          "normalDays": 14,
-          "vacuumDays": 42
+          "normalDays": 16,
+          "vacuumDays": 45
         },
         "freezer": {
           "normalDays": 90,
@@ -328,8 +328,8 @@
       ],
       "shelfLife": {
         "fridge": {
-          "normalDays": 7,
-          "vacuumDays": 28
+          "normalDays": 9,
+          "vacuumDays": 31
         },
         "freezer": {
           "normalDays": 60,
@@ -353,8 +353,8 @@
       ],
       "shelfLife": {
         "fridge": {
-          "normalDays": 21,
-          "vacuumDays": 42
+          "normalDays": 23,
+          "vacuumDays": 45
         },
         "freezer": {
           "normalDays": 180,
@@ -380,8 +380,8 @@
       ],
       "shelfLife": {
         "fridge": {
-          "normalDays": 3,
-          "vacuumDays": 14
+          "normalDays": 5,
+          "vacuumDays": 17
         },
         "freezer": null
       },
@@ -404,8 +404,8 @@
       ],
       "shelfLife": {
         "fridge": {
-          "normalDays": 7,
-          "vacuumDays": 21
+          "normalDays": 9,
+          "vacuumDays": 24
         },
         "freezer": null
       },
@@ -428,8 +428,8 @@
       ],
       "shelfLife": {
         "fridge": {
-          "normalDays": 3,
-          "vacuumDays": 10
+          "normalDays": 5,
+          "vacuumDays": 13
         },
         "freezer": {
           "normalDays": 150,
@@ -455,8 +455,8 @@
       ],
       "shelfLife": {
         "fridge": {
-          "normalDays": 5,
-          "vacuumDays": 21
+          "normalDays": 7,
+          "vacuumDays": 24
         },
         "freezer": {
           "normalDays": 180,
@@ -482,8 +482,8 @@
       ],
       "shelfLife": {
         "fridge": {
-          "normalDays": 2,
-          "vacuumDays": 8
+          "normalDays": 4,
+          "vacuumDays": 11
         },
         "freezer": {
           "normalDays": 270,
@@ -509,8 +509,8 @@
       ],
       "shelfLife": {
         "fridge": {
-          "normalDays": 3,
-          "vacuumDays": 10
+          "normalDays": 5,
+          "vacuumDays": 13
         },
         "freezer": {
           "normalDays": 90,
@@ -536,8 +536,8 @@
       ],
       "shelfLife": {
         "fridge": {
-          "normalDays": 4,
-          "vacuumDays": 12
+          "normalDays": 6,
+          "vacuumDays": 15
         },
         "freezer": {
           "normalDays": 120,
@@ -563,8 +563,8 @@
       ],
       "shelfLife": {
         "fridge": {
-          "normalDays": 2,
-          "vacuumDays": 8
+          "normalDays": 4,
+          "vacuumDays": 11
         },
         "freezer": {
           "normalDays": 60,
@@ -590,8 +590,8 @@
       ],
       "shelfLife": {
         "fridge": {
-          "normalDays": 3,
-          "vacuumDays": 10
+          "normalDays": 5,
+          "vacuumDays": 13
         },
         "freezer": {
           "normalDays": 90,
@@ -604,6 +604,130 @@
       "verified": true,
       "origin": "user",
       "userModified": true
+    },
+    {
+      "id": "uova",
+      "name": "Uova fresche",
+      "category": "Latticini, Uova e Preparazioni (In Frigorifero)",
+      "state": "raw",
+      "aliases": [
+        "uova",
+        "uovo"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 28,
+          "vacuumDays": null
+        },
+        "freezer": null
+      },
+      "vacuumNote": null,
+      "notes": "Conservare nel guscio e rispettare la data indicata sulla confezione.",
+      "source": "curated",
+      "verified": true,
+      "origin": "sealed",
+      "userModified": false
+    },
+    {
+      "id": "riso-bianco-cotto",
+      "name": "Riso bianco cotto",
+      "category": "Piatti Cotti, Sughi e Preparazioni (In Frigorifero)",
+      "state": "cooked",
+      "aliases": [
+        "riso cotto",
+        "riso bianco"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 4,
+          "vacuumDays": 7
+        },
+        "freezer": {
+          "normalDays": 90,
+          "vacuumDays": 150
+        }
+      },
+      "vacuumNote": null,
+      "notes": "Raffreddare rapidamente prima di riporre.",
+      "source": "curated",
+      "verified": true,
+      "origin": "sealed",
+      "userModified": false
+    },
+    {
+      "id": "pane-fresco",
+      "name": "Pane fresco",
+      "category": "Panificati (In Frigorifero)",
+      "state": "other",
+      "aliases": [
+        "pane",
+        "panini"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 5,
+          "vacuumDays": 8
+        },
+        "freezer": {
+          "normalDays": 90,
+          "vacuumDays": 180
+        }
+      },
+      "vacuumNote": null,
+      "notes": "Il congelatore preserva meglio consistenza e freschezza.",
+      "source": "curated",
+      "verified": true,
+      "origin": "sealed",
+      "userModified": false
+    },
+    {
+      "id": "pollo-cotto",
+      "name": "Pollo cotto",
+      "category": "Piatti Cotti, Sughi e Preparazioni (In Frigorifero)",
+      "state": "cooked",
+      "aliases": [
+        "pollo cotto",
+        "pollo arrosto"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 4,
+          "vacuumDays": 7
+        },
+        "freezer": {
+          "normalDays": 90,
+          "vacuumDays": 150
+        }
+      },
+      "vacuumNote": null,
+      "notes": "Conservare entro due ore dalla cottura.",
+      "source": "curated",
+      "verified": true,
+      "origin": "sealed",
+      "userModified": false
+    },
+    {
+      "id": "pomodori-frutti-freschi",
+      "name": "Pomodori e frutti freschi",
+      "category": "Frutta e Verdura (In Frigorifero)",
+      "state": "raw",
+      "aliases": [
+        "pomodori",
+        "frutta fresca"
+      ],
+      "shelfLife": {
+        "fridge": {
+          "normalDays": 7,
+          "vacuumDays": 10
+        },
+        "freezer": null
+      },
+      "vacuumNote": null,
+      "notes": null,
+      "source": "curated",
+      "verified": true,
+      "origin": "sealed",
+      "userModified": false
     }
   ]
 }
