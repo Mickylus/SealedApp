@@ -112,7 +112,10 @@ export function ScannerView() {
           }
 
           setContainers(scans);
-          if (!isInUse && scannedContainer) {
+          if (isInUse && scannedContainer) {
+            setSelectedContainerId(scannedContainer.id);
+            setScreen('detail');
+          } else if (scannedContainer) {
             setSelectedContainerId(scannedContainer.id);
             setScreen('foods');
           }

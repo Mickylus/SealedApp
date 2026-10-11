@@ -15,6 +15,7 @@ export function useScanner(enabled = true) {
   const [decodedText, setDecodedText] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [running, setRunning] = useState(false);
+  const runningRef = useRef(false);
   const lastDecode = useRef({ value: '', at: 0 });
   const autoStartRequested = useRef(false);
 
@@ -29,13 +30,22 @@ export function useScanner(enabled = true) {
     }
   }, [adapter]);
 
+  const enqueue = useCallback((task: () => Promise<void>) => {
+    operation.current = operation.current
+      .catch((reason: unknown) => {
+        console.warn('Scanner operation failed:', reason);
+      })
+      .then(task);
+    return operation.current;
+  }, []);
+
   const stop = useCallback(() => {
-    operation.current = operation.current.then(async () => {
+    return enqueue(async () => {
       await adapter.stop();
+      runningRef.current = false;
       setRunning(false);
     });
-    return operation.current;
-  }, [adapter]);
+  }, [adapter, enqueue]);
 
   const decode = useCallback((value: string) => {
     const decodedValue = value.trim();
@@ -58,22 +68,27 @@ export function useScanner(enabled = true) {
 
   const start = useCallback(() => {
     if (!selectedCamera) return Promise.resolve();
-    operation.current = operation.current.then(async () => {
-      if (running) return;
+    return enqueue(async () => {
+      if (runningRef.current) return;
       setError(null);
       try {
-        await adapter.start(selectedCamera, (value) => {
-          decode(value);
-        }, setStats);
+        await adapter.start(selectedCamera, decode, (nextStats) => {
+          setStats((current) => ({
+            ...nextStats,
+            lastDecodeAt: Math.max(nextStats.lastDecodeAt ?? 0, current.lastDecodeAt ?? 0) || null,
+          }));
+        });
         savePreferredCamera(selectedCamera);
+        runningRef.current = true;
         setRunning(true);
       } catch (reason) {
         setError(reason instanceof Error ? `Impossibile avviare la fotocamera: ${reason.message}` : `Impossibile avviare la fotocamera: ${String(reason)}`);
+        runningRef.current = false;
+        setRunning(false);
         await adapter.stop();
       }
     });
-    return operation.current;
-  }, [adapter, decode, running, selectedCamera, stop]);
+  }, [adapter, decode, enqueue, selectedCamera]);
 
   useEffect(() => {
     if (!enabled) {

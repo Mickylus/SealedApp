@@ -105,6 +105,7 @@ button:not(:disabled):hover { background: var(--wine-dark); transform: translate
 .settings-row small { color: var(--ink-muted); font-size: .78rem; }
 .settings-row b { color: var(--ink-muted); }
 .settings-row:hover:not(:disabled) { color: #fff; background: var(--wine-dark); }
+.settings-row:hover:not(:disabled) strong { color: #fff; }
 .settings-row:hover:not(:disabled) small, .settings-row:hover:not(:disabled) b { color: rgba(255,255,255,.72); }
 .disclaimer { margin: 24px 3px; color: var(--ink-muted); font-size: .78rem; line-height: 1.45; }
 .bottom-nav { position: fixed; z-index: 3; bottom: 0; left: 50%; display: grid; grid-template-columns: 1fr 64px 1fr; align-items: end; width: min(430px, 100%); padding: 10px 20px 12px; transform: translateX(-50%); background: rgba(255, 255, 255, .96); border-top: 1px solid var(--line); }
@@ -134,7 +135,8 @@ button:not(:disabled):hover { background: var(--wine-dark); transform: translate
 .scanner-actions p { margin: 0 0 12px; color: var(--ink-muted); font-size: .8rem; text-align: center; }
 .scanner-action-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .scanner-action { display: flex; align-items: center; justify-content: center; gap: 7px; min-height: 44px; padding: 10px 8px; color: var(--wine-dark); background: #f3f7f5; border: 1px solid var(--line); border-radius: 12px; font-size: .78rem; font-weight: 800; text-align: center; cursor: pointer; }
-.scanner-action:hover { color: var(--wine-dark); background: var(--wine-soft); transform: translateY(-1px); }
+.scanner-action:hover,
+.scanner-action:hover span { color: var(--wine-dark); background: var(--wine-soft); transform: translateY(-1px); }
 .scanner-action span { color: var(--wine); font-size: 1rem; }
 .manual-code-form { display: grid; gap: 7px; margin-top: 12px; }
 .manual-code-form label { color: var(--ink-muted); font-size: .75rem; }

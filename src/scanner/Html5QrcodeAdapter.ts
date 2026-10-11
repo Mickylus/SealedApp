@@ -128,8 +128,17 @@ export class Html5QrcodeAdapter implements QrScannerAdapter {
     this.statsTimer = null;
     const scanner = this.scanner;
     this.scanner = null;
-    if (scanner?.isScanning) await scanner.stop();
-    scanner?.clear();
+    try {
+      if (scanner?.isScanning) await scanner.stop();
+    } catch (reason) {
+      console.warn('Unable to stop QR scanner:', reason);
+    } finally {
+      try {
+        scanner?.clear();
+      } catch (reason) {
+        console.warn('Unable to clear QR scanner:', reason);
+      }
+    }
   }
 
   async scanFile(file: File): Promise<string> {
