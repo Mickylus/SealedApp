@@ -7,11 +7,13 @@ export interface StoredScan {
   storage?: 'fridge' | 'freezer';
   storedAt?: string;
   expirationDate?: string;
+  quantity?: number;
+  photo?: string;
   status?: 'active' | 'consumed' | 'discarded';
 }
 
 const databaseName = 'sealed-database';
-const databaseVersion = 4;
+const databaseVersion = 5;
 const storeName = 'scans';
 
 function openDatabase(): Promise<IDBDatabase> {

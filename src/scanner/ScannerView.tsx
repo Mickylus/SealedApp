@@ -8,6 +8,7 @@ import foodsSeed from '../database/food.seed.json';
 type Food = (typeof foodsSeed.foods)[number];
 type FoodOverride = { fridgeDays?: number; freezerDays?: number; icon?: string; photo?: string };
 type StorageMode = 'fridge' | 'freezer';
+type QuantityLevel = 0 | 1 | 2 | 3;
 type Screen = 'home' | 'scanner' | 'settings' | 'foods' | 'detail' | 'new-container' | 'food-editor';
 const today = () => new Date().toISOString().slice(0, 10);
 const foodIcons: Record<string, string> = {
@@ -66,10 +67,16 @@ function getExpirationDate(container: StoredScan, overrides: Record<string, Food
 function getRemainingDays(container: StoredScan, overrides: Record<string, FoodOverride>): number | null {
   const food = getFood(container.foodId, overrides);
   const days = getFoodDays(food, container.storage ?? 'fridge', overrides[container.foodId ?? '']);
-  if (!container.storedAt || days == null) return null;
-  const date = new Date(`${container.storedAt}T00:00:00`);
-  date.setDate(date.getDate() + days);
-  return Math.ceil((date.getTime() - new Date(`${today()}T00:00:00`).getTime()) / 86400000);
+  const expiration = container.expirationDate
+    ? new Date(`${container.expirationDate}T00:00:00`)
+    : container.storedAt && days != null
+      ? new Date(`${container.storedAt}T00:00:00`)
+      : null;
+  if (!expiration || Number.isNaN(expiration.getTime())) return null;
+  if (!container.expirationDate) expiration.setDate(expiration.getDate() + (days ?? 0));
+  const currentDate = new Date(`${today()}T00:00:00`);
+  if (Number.isNaN(currentDate.getTime())) return null;
+  return Math.round((expiration.getTime() - currentDate.getTime()) / 86400000);
 }
 
 function getFoodDays(food: Food | undefined, storage: StorageMode, override?: FoodOverride): number | undefined {
@@ -77,6 +84,15 @@ function getFoodDays(food: Food | undefined, storage: StorageMode, override?: Fo
   return storage === 'fridge'
     ? override?.fridgeDays ?? food.shelfLife.fridge?.normalDays
     : override?.freezerDays ?? food.shelfLife.freezer?.normalDays;
+}
+
+function getQuantityLabel(quantity: number | undefined): string {
+  switch (quantity ?? 3) {
+    case 0: return 'Vuoto';
+    case 1: return 'Quasi vuoto';
+    case 2: return 'A metà';
+    default: return 'Pieno';
+  }
 }
 
 export function ScannerView() {
@@ -92,6 +108,7 @@ export function ScannerView() {
   });
   const [foodDraft, setFoodDraft] = useState<FoodOverride>({});
   const foodPhotoInput = useRef<HTMLInputElement>(null);
+  const containerPhotoInput = useRef<HTMLInputElement>(null);
   const [filter, setFilter] = useState<'all' | StorageMode>('all');
   const [selectedContainerId, setSelectedContainerId] = useState<number | undefined>();
   const scanner = useScanner(screen === 'scanner');
@@ -289,7 +306,7 @@ export function ScannerView() {
       <header className="app-header">
         <div>
           <p className="eyebrow">SEALED</p>
-          <h1>{screen === 'home' ? 'Inventario' : screen === 'scanner' ? 'Scansiona' : 'Impostazioni'}</h1>
+          <h1>{screen === 'home' ? 'FRESH & SAVE' : screen === 'scanner' ? 'Scansiona' : screen === 'detail' ? 'Contenitore' : 'Impostazioni'}</h1>
           <p className="intro">{screen === 'home' ? `${activeContainers.length} contenitori in uso` : screen === 'scanner' ? 'Inquadra il QR sul coperchio' : screen === 'foods' ? (foodMode === 'catalog' ? 'Gestisci durate e icone' : 'Scegli il contenuto del contenitore') : screen === 'food-editor' ? 'Modifica alimento' : screen === 'detail' ? 'Dettaglio contenitore' : screen === 'new-container' ? 'Configura il nuovo contenitore' : 'Personalizza la tua esperienza'}</p>
         </div>
       </header>
@@ -310,15 +327,14 @@ export function ScannerView() {
                   const food = getFood(container.foodId, foodOverrides);
                   const remaining = getRemainingDays(container, foodOverrides);
                   return <article className="container-item modern-item" key={container.id}>
-                    <div className="food-mark" aria-label={getContainerType(container.code)?.description || 'Contenitore'}><ContainerIcon code={container.code} compact /></div>
+                    <div className="container-photo" aria-label={getContainerType(container.code)?.description || 'Contenitore'}><ContainerIcon code={container.code} compact /></div>
                     <button className="container-main container-open" onClick={() => { setSelectedContainerId(container.id); setScreen('detail'); }}>
                       <strong>{food?.name || 'Alimento da configurare'}</strong>
                       <span>{getContainerType(container.code)?.description || 'Contenitore'} · {container.storage === 'freezer' ? 'Congelatore' : 'Frigorifero'}</span>
                     </button>
                     <div className={`days-left${remaining !== null && remaining <= 2 ? ' warning' : ''}`}>
-                      <strong>{remaining ?? '—'}</strong><span>{remaining === 1 ? 'giorno' : 'giorni'}</span>
+                      <strong>{remaining !== null && remaining < 0 ? 'SCADUTO' : remaining ?? '—'}</strong><span>{remaining !== null && remaining < 0 ? '' : remaining === 1 ? 'giorno' : 'giorni'}</span>
                     </div>
-                    <span className="detail-arrow" aria-hidden="true">›</span>
                   </article>;
                 })}
             </div>
@@ -410,7 +426,9 @@ export function ScannerView() {
             const container = containers.find((item) => item.id === selectedContainerId);
             if (!container) return <button className="back-button" onClick={() => setScreen('home')}>‹ Torna all'inventario</button>;
             const food = getFood(container.foodId, foodOverrides);
-            return <><button className="back-button" onClick={() => setScreen('home')}>‹ Contenitori</button><div className="detail-container-heading"><div><h2>{food?.name || 'Contenitore'}</h2><p className="detail-status">{getRemainingDays(container, foodOverrides) === null ? 'Inserisci il cibo per calcolare la durata' : `Scade il ${getExpirationDate(container, foodOverrides)}`}</p></div></div><div className="detail-card"><div><span>Contenitore</span><strong>{getContainerType(container.code)?.description || 'Non riconosciuto'}</strong></div><div><span>Conservazione</span><select value={container.storage ?? 'fridge'} onChange={(event) => void updateContainer(container, { storage: event.target.value as StorageMode, storedAt: container.storedAt ?? today() })}><option value="fridge">Frigorifero</option><option value="freezer">Congelatore</option></select></div><div><span>Inserito il</span><input type="date" value={container.storedAt ?? today()} onChange={(event) => void updateContainer(container, { storedAt: event.target.value })} /></div><div><span>Codice contenitore</span><code>{getContainerCode(container.code)}</code></div></div><div className="release-actions"><button className="eat-button" onClick={() => void releaseContainer(container, 'consumed')}>✓ Mangiato</button><button className="discard-button" onClick={() => void releaseContainer(container, 'discarded')}>♧ Buttato</button></div><button className="food-change" onClick={() => { setFoodMode('assign'); setScreen('foods'); }}>Modifica alimento</button></>;
+            const quantity = (container.quantity ?? 3) as QuantityLevel;
+            const remainingDays = getRemainingDays(container, foodOverrides);
+            return <><button className="back-button" onClick={() => setScreen('home')}>‹ Indietro</button><div className="detail-hero"><div className="detail-hero-photo">{container.photo ? <img src={container.photo} alt="Foto del contenitore" /> : <ContainerIcon code={container.code} />}</div><div className="detail-hero-copy"><p>CREATO IL {new Date(container.scannedAt).toLocaleDateString('it-IT')}</p><h2>{getContainerType(container.code)?.description || 'Contenitore'} {getContainerCode(container.code)}</h2><span>Aggiungi descrizione (opzionale)</span><button className="photo-picker-button" type="button" onClick={() => containerPhotoInput.current?.click()}>Aggiungi foto</button><input ref={containerPhotoInput} className="visually-hidden" type="file" accept="image/*" onChange={(event) => { const file = event.target.files?.[0]; if (!file) return; const reader = new FileReader(); reader.onload = () => { if (typeof reader.result === 'string') void updateContainer(container, { photo: reader.result }); }; reader.readAsDataURL(file); event.target.value = ''; }} /></div></div><div className="detail-actions"><button onClick={() => void releaseContainer(container, 'consumed')}>◉<strong>Mangiato</strong></button><button onClick={() => navigator.share?.({ title: 'Sealed', text: getContainerCode(container.code) })}>↥<strong>Condividi</strong></button><button onClick={() => setScreen('scanner')}>⌗<strong>Rescan</strong></button></div><section className="expiry-panel"><h3>DATA DI SCADENZA</h3><div className="detail-row"><strong>Gruppo alimentare</strong><span>Cibo</span></div><div className="detail-row storage-selector"><strong>Stoccaggio</strong><div><button type="button" className={container.storage !== 'freezer' ? 'selected' : ''} onClick={() => void updateContainer(container, { storage: 'fridge' })}>Frigorifero</button><button type="button" className={container.storage === 'freezer' ? 'selected' : ''} onClick={() => void updateContainer(container, { storage: 'freezer' })}>Congelatore</button></div></div><div className="detail-row"><strong>Data di scadenza</strong><b>{remainingDays === null ? '—' : `${remainingDays} ${remainingDays === 1 ? 'giorno' : 'giorni'}`}</b></div></section><section className="quantity-panel"><h3>QUANTITÀ</h3><div className="quantity-icon"><ContainerIcon code={container.code} /><strong>{getQuantityLabel(quantity)}</strong></div><input aria-label="Quantità" type="range" min="0" max="3" step="1" value={quantity} onChange={(event) => void updateContainer(container, { quantity: Number(event.target.value) as QuantityLevel })} /></section><section className="detail-card detail-technical"><div><span>Data inserimento</span><input type="date" value={container.storedAt ?? today()} onChange={(event) => void updateContainer(container, { storedAt: event.target.value })} /></div><div><span>Codice contenitore</span><code>{getContainerCode(container.code)}</code></div></section><button className="save-detail-button" onClick={() => setScreen('home')}>SALVA</button><button className="food-change" onClick={() => { setFoodMode('assign'); setScreen('foods'); }}>Modifica alimento</button></>;
           })()}
         </section>
       ) : (
@@ -474,10 +492,10 @@ export function ScannerView() {
           <p className="disclaimer">Le durate sono stime prudenti, non garanzie di sicurezza alimentare. I dati restano solo su questo dispositivo.</p>
         </section>
       )}
+      <button className="floating-scan" onClick={() => setScreen('scanner')} aria-label="Scansiona contenitore">⌗</button>
       <nav className={`bottom-nav${screen === 'scanner' ? ' hidden' : ''}`} aria-label="Navigazione principale">
-        <button className={screen === 'home' ? 'nav-item active' : 'nav-item'} onClick={() => setScreen('home')}><span>☷</span>Inventario</button>
-        <button className="nav-scan" onClick={() => setScreen('scanner')} aria-label="Scansiona">⌗</button>
-        <button className={screen === 'settings' ? 'nav-item active' : 'nav-item'} onClick={() => setScreen('settings')}><span>☷</span>Impostazioni</button>
+        <button className={screen === 'home' ? 'nav-item active' : 'nav-item'} onClick={() => setScreen('home')}><span>♧</span>Salva</button>
+        <button className={screen === 'settings' ? 'nav-item active' : 'nav-item'} onClick={() => setScreen('settings')}><span>♙</span>Tu</button>
       </nav>
       <div id="sealed-file-reader" hidden />
     </main>
